@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  border: 1px solid #ddd;
+  padding: 4px;
+font-size: small;
+}
+td{
+  padding: 4px;
+font-size: small;
+}
+tr{
+  border-bottom: 1px solid #ddd; 
+}
+
+th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
 /* 
 :root {
   --foreground-rgb: 0, 0, 0;
