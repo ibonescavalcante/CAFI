@@ -1,12 +1,25 @@
 'use client'
 import { useState } from "react";
+import Link from "next/link";
 
 
 export default function Page() {
+    const empresas=<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+        </svg>
+    const user1=<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+        const sair =<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff">
+            <path d="M0 0h24v24H0z" fill="none"/>
+        <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+        </svg>
     const Menus = [
-        { title: "Usuario", src: "Grupos.png",select:false },
-        { title: "Empresas", src: "Usuario.png", gap:false},
-        { title: "Sair", src: "" },
+        { title: "Usuario", src: user1,select:false ,path:"/" },
+        { title: "Empresas", src: empresas, gap:false,path:"empresas"},
+        { title: "Sair", src: sair ,path:"/"},
         // { title: "Triagem", src: "Triagem.png" },
         // { title: "Configuração", src: "configuracao.png" },
         // { title: "Acesso Gerencial", src: "Usuario.png" , select:false },
@@ -38,14 +51,17 @@ export default function Page() {
                 </div>
                 <ul>
                     {Menus.map((menu, index) => (
+                        <Link  href={menu.path}>
                         <li key={index} 
                         style={{ textShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', fontWeight:'bold'}} 
                         className={`text-white  text-sm flex items-center gap-x-4 
-            cursor-pointer p-2 hover:bg-slate-100 hover:-z-50 rounded-md hover:text-black
+            cursor-pointer p-2 hover:bg-slate-300 hover:-z-50 rounded-md hover:text-black
              ${menu.gap ? "mt-9" : "mt-0"} ${menu.select==true && "bg-slate-500"}`}>
-                            <img className="h-4 w-4" src={menu.src} />
+                            {/* <img className="h-4 w-4 text-white" src={menu.src} /> */}
+                            {menu.src}
                             <span className={`${!open && 'hidden'} origin-left duration-200`}>{menu.title}</span>
                         </li>
+                        </Link>
                     ))}
                 </ul>
 

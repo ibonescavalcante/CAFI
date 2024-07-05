@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Table = ({ data }:any) => {
+const Table = ({ data,onRowClick  }:any) => {
   return (
     <table>
       <thead>
@@ -12,7 +12,7 @@ const Table = ({ data }:any) => {
       </thead>
       <tbody>
         {data.map((item:any, index:any) => (
-          <tr key={index}>
+          <tr key={index} onClick={(e)=>onRowClick(e) }>
             {Object.values(item).map((value:any, i) => (
               <td key={i}>{value}</td>
             ))}
