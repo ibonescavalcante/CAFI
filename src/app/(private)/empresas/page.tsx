@@ -6,40 +6,42 @@ import { useState } from 'react';
 
 export default function Page() {
   const dados={
-    Documento: '',
-    Fornecedor: '',
-    Nome: '',
-    Natureza: '',
-    dataAt: '',
-    dataEt: '',
-    Periodo: '',
-    Processo: '',
-    Sanção: '',
-    Contrato: '',
-    Fundamentação: '',
-    Descrição: '',
-    Abrangência: '',
-    Jugado: '',
-    Complementação: '',
-    Diário: '',
-    Obs: '',
-    // Documento: '99887766554',
-    // Fornecedor: 'CARLOS EDUARDO MENDES',
-    // Nome: 'Innovatech',
-    // Natureza: 'juridica',
-    // dataAt: '2023-04-05',
-    // dataEt: '2024-10-05',
-    // Periodo: '90',
-    // Processo: '55678/2022 - PGMS',
-    // Sanção: 'interdição',
-    // Contrato: 'fornecimento',
-    // Fundamentação: 'art. 15, inciso I',
-    // Descrição: 'Produto fora do padrão',
-    // Abrangência: 'estadual',
-    // Jugado: '2024-09-05',
-    // Complementação: 'nenhuma',
-    // Diário: 'DOU 04/2023',
-    // Obs: 'Observação 4',
+    // Documento: '',
+    // Fornecedor: '',
+    // Nome: '',
+    // Natureza: '',
+    // dataAt: '',
+    // dataEt: '',
+    // Periodo: '',
+    // Processo: '',
+    // Sanção: '',
+    // Contrato: '',
+    // Fundamentação: '',
+    // Descrição: '',
+    // Abrangência: '',
+    // Jugado: '',
+    // Complementação: '',
+    // Diário: '',
+    // Obs: '',
+    Documento: '99887766554',
+    Fornecedor: 'CARLOS EDUARDO MENDES',
+    Nome: 'Innovatech',
+    Natureza: 'juridica',
+    dataAt: '2023-04-05',
+    dataEt: '2024-10-05',
+    Periodo: '90',
+    Processo: '55678/2022 - PGMS',
+    Sanção: 'interdição',
+    Contrato: 'fornecimento',
+    Fundamentação: 'art. 15, inciso I',
+    Descrição: 'Produto fora do padrão',
+    Abrangência: 'estadual',
+    Jugado: '2024-09-05',
+    Complementação: 'nenhuma',
+    Diário: 'DOU 04/2023',
+    Obs: 'Observação 4',
+    Obs1: 'Observação 4',
+    Obs3: 'Observação 4',
 }
   const [modalVisible, setModalVisible] = useState(false);
   const sampleData = [
@@ -74,6 +76,10 @@ export default function Page() {
  setModalVisible(!modalVisible)
   }
 
+  const handleSubmit =(e:any)=>{
+console.log(e);
+  }
+
   return (
     <>
       <div className="flex items-center gap-4 p-4">
@@ -104,7 +110,7 @@ export default function Page() {
       </div>
       <Table data={sampleData} onRowClick={handleRowClick} />
       <Modal isOpen={modalVisible}>
-        <From onCancel={()=>{setModalVisible(!modalVisible)}}  dados={dados} />
+        <From onCancel={()=>{setModalVisible(!modalVisible)}}  dados={dados} foutData={handleSubmit}/>
       </Modal>
     </>
 

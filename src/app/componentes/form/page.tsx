@@ -1,9 +1,10 @@
 'use client'
 import React, { useState } from 'react';
 
-const Form = ({onCancel,hOnSubmit,dados}:any) => {
+
+const Form = ({onCancel,dados,foutData}:any) => {
     const incialDados = dados?dados:{}
-    const [formData, setFormData]: any = useState(incialDados)
+    const [formData, setFormData] = useState(incialDados)
 
 
     const handleChange = (e: any) => {
@@ -13,8 +14,9 @@ const Form = ({onCancel,hOnSubmit,dados}:any) => {
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        console.log('Form data submitted:', formData);
-        // Aqui você pode enviar os dados para um servidor ou outra lógica de manipulação
+        // console.log('Form data submitted:', formData);
+        foutData(formData);
+
     };
 
     return (
