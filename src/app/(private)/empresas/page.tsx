@@ -2,8 +2,46 @@
 import From from '../../componentes/form/page';
 import Table from '@/app/componentes/tabela/page';
 import Modal from '@/app/componentes/modal/page';
+import { useState } from 'react';
 
 export default function Page() {
+  const dados={
+    Documento: '',
+    Fornecedor: '',
+    Nome: '',
+    Natureza: '',
+    dataAt: '',
+    dataEt: '',
+    Periodo: '',
+    Processo: '',
+    Sanção: '',
+    Contrato: '',
+    Fundamentação: '',
+    Descrição: '',
+    Abrangência: '',
+    Jugado: '',
+    Complementação: '',
+    Diário: '',
+    Obs: '',
+    // Documento: '99887766554',
+    // Fornecedor: 'CARLOS EDUARDO MENDES',
+    // Nome: 'Innovatech',
+    // Natureza: 'juridica',
+    // dataAt: '2023-04-05',
+    // dataEt: '2024-10-05',
+    // Periodo: '90',
+    // Processo: '55678/2022 - PGMS',
+    // Sanção: 'interdição',
+    // Contrato: 'fornecimento',
+    // Fundamentação: 'art. 15, inciso I',
+    // Descrição: 'Produto fora do padrão',
+    // Abrangência: 'estadual',
+    // Jugado: '2024-09-05',
+    // Complementação: 'nenhuma',
+    // Diário: 'DOU 04/2023',
+    // Obs: 'Observação 4',
+}
+  const [modalVisible, setModalVisible] = useState(false);
   const sampleData = [
     {
       documento: '99887766554',
@@ -27,8 +65,15 @@ export default function Page() {
     // Adicione mais objetos se necessário
   ];
   const handleRowClick = (item:any) => {
-    alert(`item: ${item}`);
+    console.log(item);
+    setModalVisible(!modalVisible);
+    // alert(`item: ${item}`);
   }; 
+  const handleAddNovo =()=>{
+    console.log("here")
+ setModalVisible(!modalVisible)
+  }
+
   return (
     <>
       <div className="flex items-center gap-4 p-4">
@@ -53,12 +98,14 @@ export default function Page() {
             </div>
             </form>
           </div>
-          <input  style={{fontSmooth:'auto',fontWeight:'normal',boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} type="button"  className=" bg-[#3c6075] text-white  rounded-md pl-3 pr-3"   value="Adicionar novo" name="search"  />
+          <input  style={{fontSmooth:'auto',fontWeight:'normal',boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}} type="button"  onClick={handleAddNovo} className=" bg-[#3c6075] text-white  rounded-md pl-3 pr-3"   value="Adicionar novo" name="search"  />
         </div>
        
       </div>
       <Table data={sampleData} onRowClick={handleRowClick} />
-      <Modal />
+      <Modal isOpen={modalVisible}>
+        <From onCancel={()=>{setModalVisible(!modalVisible)}}  dados={dados} />
+      </Modal>
     </>
 
   )
