@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Empresa {
+  id                      String   @id @default(uuid()) // Chave primária
+  cpf_cnpj                String
+  razao_social            String
+  nome_fantasia           String
+  tipo_ocorrencia         String
+  motivo                  String
+  uasg_sancionadora       String
+  ambito_da_sancao        String
+  prazo                   String
+  prazo_inicial           String
+  prazo_final             String
+  numero_do_processo      String
+  numero_do_contrato      String
+  valor_da_multa          String
+  descricao_justificativa String
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+  data_inicio             DateTime
+  data_final              DateTime
+  userId                  String
+  user                    User     @relation(fields: [userId], references: [id]) // Relacionamento com a tabela User
+
+  @@map("empresas") // Opcional: mapeia para um nome de tabela específico no banco de dados
+}
+
+model User {
+  id      String @id @default(uuid())
+  usernpx String
+  senha   String
+
+  Empresa Empresa[]
+}

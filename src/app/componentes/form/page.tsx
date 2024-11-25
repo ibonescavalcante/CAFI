@@ -23,19 +23,21 @@ const Form = ({onCancel,dados,foutData}:any) => {
         <>
         <form onSubmit={handleSubmit}>
             <div className='flex flex-row flex-wrap gap-4 justify-between border-none p-6 shadow-none'>
-                {Object.keys(formData).map((key) => (
-                    <div className="flex flex-col justify-center   flex-1 min-w-[250px]" >
-                        <label >
-                            {key}:
-                            <input className='border p-2 rounded-sm min-w-[300px] w-full font-light text-sm focus:outline-none focus:ring-2 '
-                                type={key.includes('data') ? 'date' : 'text'}
-                                name={key}
-                                value={formData[key]}
-                                onChange={handleChange}
-                            />
-                        </label>
-                    </div>
-                ))}
+                {//Object.keys(formData).map((key) => (
+                    // <div  className="flex flex-col justify-center   flex-1 min-w-[250px]" >
+                    //     <label >
+                            
+                    //         <input className='border p-2 rounded-sm min-w-[300px] w-full font-light text-sm focus:outline-none focus:ring-2 '
+                    //             type={key.includes('data') ? 'date' : 'text'}
+                    //             name={key}
+                    //             value={formData[key]}
+                    //             onChange={handleChange}
+                                
+                    //         />
+                    //     </label>
+                    // </div>
+               // ))
+               }
 
 
 

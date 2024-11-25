@@ -15,11 +15,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const idLogado =false;
   return (
     <html lang="pt-br">
       <body className={inter.className}>
       <div className=" flex">
-    <Sidebar />
+<Sidebar />
     <div  style={style.content} className=" font-semibold flex-col h-screen w-screen">
       
       {/* <div className=" w-full h-10 bg-gradient-to-r from-[#EEF3F5] to-[#12861c] "></div>  */}
@@ -27,7 +28,7 @@ export default function RootLayout({
       {/* <div  style={{    borderBottom:'1px solid rgb(30, 30, 30)'}} className="flex justify-between items-center shadow w-full h-6 bg-gradient-to-r pl-6 pr-2 from-[#D7DFF9] to-[#494949]">
         <span className="text-sm  shadow">Helpdesk </span><h1 className="text-white shadow">Ibones </h1>
         </div> */}
-      <div className="p-10">{children}</div>
+      <div>{children}</div>
      
     </div>
    </div>
