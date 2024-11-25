@@ -1,6 +1,7 @@
 "use client";
-import From from "@/app/_componentes/form/page";
-
+import From from "../../_componentes/form/page";
+// import Table from '@/app/componentes/tabela/page';
+// import Modal from '@/app/componentes/modal/page';
 import { useState } from "react";
 
 export default function Page() {
@@ -45,13 +46,14 @@ export default function Page() {
   const [modalVisible, setModalVisible] = useState(false);
   const sampleData = [
     {
-      nome: "Ibones Santos Cavalcante",
-      usuario: "cavalcante",
-      tipo: "Administrador",
-      status: "ativo",
+      documento: "99887766554",
+      fornecedor: "CARLOS EDUARDO MENDES",
+      nomeFantasia: "Innovatech",
+      natureza: "juridica",
       dataAt: "2023-04-05",
       dataEt: "2024-10-05",
-
+      periodo: "90",
+      processo: "55678/2022 - PGMS",
       //   tipoSancao: 'interdição',
       //   tipoContrato: 'fornecimento',
       //   fundamentacaoLegal: 'art. 15, inciso I',
@@ -81,7 +83,7 @@ export default function Page() {
   return (
     <div className="p-10">
       <div className="flex items-center gap-4 p-4">
-        {/* <img width="50" height="40" src="img/user.svg" /> */}
+        {/* <img width="50" height="40" src="img/Company.png" /> */}
         <div className=" flex flex-col ">
           <strong
             style={{
@@ -90,14 +92,14 @@ export default function Page() {
             }}
             className="text-[32px] "
           >
-            Usuarios
+            Empresas
           </strong>
           <span
             style={{ fontSmooth: "auto", fontWeight: "normal" }}
             className="-mt-1 pl-1 text-sm  text-gray-500"
           >
             {" "}
-            Visualize os usuários cadastradas no sistema.
+            Visualize as empresas cadastradas no sistema.
           </span>
         </div>
       </div>
@@ -144,7 +146,13 @@ export default function Page() {
       </div>
       {/* <Table data={sampleData} onRowClick={handleRowClick} />
       <Modal isOpen={modalVisible}>
-        <From onCancel={()=>{setModalVisible(!modalVisible)}}  dados={dados} foutData={handleSubmit}/>
+        <From
+          onCancel={() => {
+            setModalVisible(!modalVisible);
+          }}
+          dados={dados}
+          foutData={handleSubmit}
+        />
       </Modal> */}
     </div>
   );
