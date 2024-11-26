@@ -205,7 +205,7 @@ const Usuarios = () => {
           }
           className="max-w-sm"
         />
-        <Button variant="secondary">Novo Cadastro</Button>
+        <Button variant="secondary">Novo Usuario</Button>
       </div>
       <div className="rounded-md border">
         <Table>

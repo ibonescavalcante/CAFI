@@ -1,4 +1,5 @@
 "use client";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
 import Link from "next/link";
 
@@ -85,6 +86,13 @@ export default function Page() {
           >
             CMEP
           </h1>
+        </div>
+        <div className="flex items-center  border  py-6">
+          <Skeleton className="h-12 w-12 rounded-full" />
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-[150px]" />
+            <Skeleton className="h-4 w-[100px]" />
+          </div>
         </div>
         <ul>
           {Menus.map((menu, index) => (

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/react": "^2.4.8",
     "@prisma/client": "^5.20.0",
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-dialog": "^1.1.2",
@@ -18,12 +19,14 @@
     "@tanstack/react-table": "^8.20.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "framer-motion": "^11.11.17",
     "lucide-react": "^0.447.0",
     "next": "^14.2.14",
     "pnpm": "^9.12.0",
     "react": "^18",
     "react-dom": "^18",
     "shadcn": "^2.1.6",
+    "skeleton": "^0.1.2",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"

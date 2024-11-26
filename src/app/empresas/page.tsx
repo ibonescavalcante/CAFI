@@ -21,7 +21,6 @@ const Page = () => {
             style={{ fontSmooth: "auto", fontWeight: "normal" }}
             className="-mt-1 pl-1 text-sm  text-gray-500"
           >
-            {" "}
             Visualize as empresas cadastradas no sistema.
           </span>
         </div>

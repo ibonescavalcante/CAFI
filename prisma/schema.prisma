@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Empresa {
-  id                      String   @id @default(uuid()) // Chave primária
+  id                      Int      @id @default(autoincrement()) // Chave primária
   cpf_cnpj                String
   razao_social            String
   nome_fantasia           String
@@ -33,16 +33,16 @@ model Empresa {
   updatedAt               DateTime @updatedAt
   data_inicio             DateTime
   data_final              DateTime
-  userId                  String
+  userId                  Int
   user                    User     @relation(fields: [userId], references: [id]) // Relacionamento com a tabela User
 
   @@map("empresas") // Opcional: mapeia para um nome de tabela específico no banco de dados
 }
 
 model User {
-  id      String @id @default(uuid())
-  usernpx String
-  senha   String
+  id    Int    @id @default(autoincrement())
+  user  String
+  senha String
 
   Empresa Empresa[]
 }
