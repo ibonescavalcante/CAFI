@@ -12,19 +12,21 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-// import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
 // import { Checkbox } from "@/components/ui/checkbox";
-// import {
-//   DropdownMenu,
-//   DropdownMenuCheckboxItem,
-//   DropdownMenuContent,
-//   DropdownMenuItem,
-//   DropdownMenuLabel,
-//   DropdownMenuSeparator,
-//   DropdownMenuTrigger,
-// } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -34,6 +36,27 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const data: Empresas[] = [
   {
@@ -147,30 +170,6 @@ export type Empresas = {
 };
 
 export const columns: ColumnDef<Empresas>[] = [
-  // {
-  //   id: "select",
-  //   header: "CPF/CNPJ",
-  // header: ({ table }) => (
-  //   <Checkbox
-  //     checked={
-  //       table.getIsAllPageRowsSelected() ||
-  //       (table.getIsSomePageRowsSelected() && "indeterminate")
-  //     }
-  //     onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-  //     aria-label="Select all"
-  //   />
-  // ),
-  // cell: ({ row }) => (
-  //   <Checkbox
-  //     checked={row.getIsSelected()}
-  //     onCheckedChange={(value) => row.toggleSelected(!!value)}
-  //     aria-label="Select row"
-  //   />
-  // ),
-
-  // enableSorting: false,
-  // enableHiding: false,
-  // },
   {
     accessorKey: "cpf_cnpj",
     header: "CPF/CNPJ",
@@ -181,17 +180,7 @@ export const columns: ColumnDef<Empresas>[] = [
   {
     accessorKey: "razao_social",
     header: "Razão Social",
-    // header: ({ column }) => {
-    //   return (
-    //     <Button
-    //       variant="ghost"
-    //       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-    //     >
-    //       Razão Social
-    //       {/* <ArrowUpDown /> */}
-    //     </Button>
-    //   );
-    // },
+
     cell: ({ row }) => (
       <div className="lowercase">{row.getValue("razao_social")}</div>
     ),
@@ -282,6 +271,28 @@ export const columns: ColumnDef<Empresas>[] = [
       </div>
     ),
   },
+  {
+    id: "actions",
+    header: "Ações",
+    enableHiding: false,
+    cell: ({ row }) => {
+      const payment = row.original;
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <MoreHorizontal />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>Editar</DropdownMenuItem>
+            <DropdownMenuItem>Deletar</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
+  },
 ];
 
 const Empresas = () => {
@@ -311,7 +322,41 @@ const Empresas = () => {
       rowSelection,
     },
   });
+  const formSchema = z.object({
+    cpf_cnpj: z
+      .string()
+      .nonempty("CPF/CNPJ é obrigatório")
+      .length(14, "CPF/CNPJ deve ter 14 caracteres."),
+    razao_social: z.string().nonempty("Razão social é obrigatória"),
+    nome_fantasia: z.string().nonempty("Nome fantasia é obrigatório"),
+    tipo_ocorrencia: z.string().nonempty("Tipo de ocorrência é obrigatório"),
+    motivo: z.string().nonempty("Motivo é obrigatório"),
+    uasg_sancionadora: z.string().nonempty("UASG sancionadora é obrigatória"),
+    ambito_da_sancao: z.string().nonempty("Âmbito da sanção é obrigatório"),
+    prazo: z.string().optional(),
+    prazo_inicial: z.string().nonempty("Prazo inicial é obrigatório"),
+    prazo_final: z.string().nonempty("Prazo final é obrigatório"),
+    numero_do_processo: z.string().optional(),
+    numero_do_contrato: z.string().optional(),
+    valor_da_multa: z.string().optional(),
+    descricao_justificativa: z.string().optional(),
+    data_inicio: z.string().nonempty("Data de início é obrigatória"),
+    data_final: z.string().nonempty("Data final é obrigatória"),
+  });
 
+  // const form = useForm<z.infer<typeof formSchema>>({
+  //   resolver: zodResolver(formSchema),
+  //   defaultValues: {
+  //     username: "",
+  //   },
+  // });
+
+  function onSubmit(values: any) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values);
+  }
+  const form = useForm();
   return (
     <div className="w-full">
       <div className="flex items-center justify-between p-2">
@@ -325,7 +370,154 @@ const Empresas = () => {
           }
           className="max-w-sm"
         />
-        <Button variant="secondary">Novo Cadastro</Button>
+
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline">Novo Cadastro</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Adicione Nova Empresa</DialogTitle>
+              <DialogDescription>
+                Make changes to your profile here. Click save when re done.
+              </DialogDescription>
+            </DialogHeader>
+            {/* <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="name" className="text-right">
+                  Name
+                </Label>
+                <Input
+                  id="name"
+                  defaultValue="Pedro Duarte"
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="username" className="text-right">
+                  Username
+                </Label>
+                <Input
+                  id="username"
+                  defaultValue="@peduarte"
+                  className="col-span-3"
+                />
+              </div>
+            </div> */}
+
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-8"
+              >
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <div>
+                      {/* CPF/CNPJ */}
+                      <div>
+                        <FormLabel>CPF/CNPJ</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Digite o CPF ou CNPJ" />
+                        </FormControl>
+                        <FormDescription>
+                          Insira o CPF ou CNPJ sem pontuação.
+                        </FormDescription>
+                        <FormMessage></FormMessage>
+                      </div>
+
+                      {/* Razão Social */}
+                      <div>
+                        <FormLabel>Razão Social</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Digite a razão social" />
+                        </FormControl>
+                        <FormDescription>
+                          O nome oficial da empresa.
+                        </FormDescription>
+                        <FormMessage></FormMessage>
+                      </div>
+
+                      {/* Nome Fantasia */}
+                      <div>
+                        <FormLabel>Nome Fantasia</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Digite o nome fantasia" />
+                        </FormControl>
+                        <FormDescription>
+                          O nome utilizado para o público.
+                        </FormDescription>
+                        <FormMessage></FormMessage>
+                      </div>
+
+                      {/* Tipo de Ocorrência */}
+                      <div>
+                        <FormLabel>Tipo de Ocorrência</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Tipo de ocorrência" />
+                        </FormControl>
+                        <FormDescription>
+                          Exemplo: Advertência, Multa, Suspensão.
+                        </FormDescription>
+                        <FormMessage></FormMessage>
+                      </div>
+
+                      {/* Prazo Inicial */}
+                      <div>
+                        <FormLabel>Prazo Inicial</FormLabel>
+                        <FormControl>
+                          <Input type="date" />
+                        </FormControl>
+                        <FormDescription>
+                          Data inicial do prazo.
+                        </FormDescription>
+                        <FormMessage></FormMessage>
+                      </div>
+
+                      {/* Prazo Final */}
+                      <div>
+                        <FormLabel>Prazo Final</FormLabel>
+                        <FormControl>
+                          <Input type="date" />
+                        </FormControl>
+                        <FormDescription>Data final do prazo.</FormDescription>
+                        <FormMessage></FormMessage>
+
+                        {/* Data Início */}
+
+                        <FormLabel>Data de Início</FormLabel>
+                        <FormControl>
+                          <Input type="date" />
+                        </FormControl>
+                        <FormDescription>
+                          Data em que a sanção começa.
+                        </FormDescription>
+                        <FormMessage></FormMessage>
+                      </div>
+
+                      {/* Data Final */}
+                      <div>
+                        <FormLabel>Data Final</FormLabel>
+                        <FormControl>
+                          <Input type="date" />
+                        </FormControl>
+                        <FormDescription>
+                          Data em que a sanção termina.
+                        </FormDescription>
+                        <FormMessage></FormMessage>
+                      </div>
+                    </div>
+                  )}
+                />
+              </form>
+            </Form>
+
+            <DialogFooter>
+              <Button type="submit">Salvar</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="rounded-md border">
