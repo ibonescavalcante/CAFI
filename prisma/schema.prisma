@@ -31,8 +31,6 @@ model Empresa {
   descricao_justificativa String
   createdAt               DateTime @default(now())
   updatedAt               DateTime @updatedAt
-  data_inicio             DateTime
-  data_final              DateTime
   userId                  Int
   user                    User     @relation(fields: [userId], references: [id]) // Relacionamento com a tabela User
 

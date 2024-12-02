@@ -1,8 +1,12 @@
 "use server";
 import Empresas from "./_columns/page";
 import Image from "next/image";
+import { getEmpresas } from "../_data/_get-empresas";
+
+// import { createEmpresa } from "./_actions/_create-empresa";
 
 const Page = () => {
+  // createEmpresa();
   return (
     <div className="flex flex-col p-4">
       <div className="flex items-center gap-4 p-4">
