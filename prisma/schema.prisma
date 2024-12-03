@@ -21,8 +21,6 @@ model Empresa {
   tipo_ocorrencia         String
   motivo                  String
   uasg_sancionadora       String
-  ambito_da_sancao        String
-  prazo                   String
   prazo_inicial           String
   prazo_final             String
   numero_do_processo      String

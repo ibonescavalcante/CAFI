@@ -1,16 +1,20 @@
-"use server";
-import Empresas from "./_columns/page";
+import { empresacolumns } from "./_columns/page";
 import Image from "next/image";
-import { getEmpresas } from "../_data/_get-empresas";
+import { DataTable } from "./_component/data-table";
+
+import { db } from "@/lib/prisma";
 
 // import { createEmpresa } from "./_actions/_create-empresa";
 
-const Page = () => {
-  // createEmpresa();
+const Page = async () => {
+  const getEmpresas = await db.empresa.findMany({
+    take: 10,
+  });
   return (
     <div className="flex flex-col p-4">
       <div className="flex items-center gap-4 p-4">
         <Image width="50" height="40" alt="Empreasa" src="/img/Company.png" />
+
         <div className=" flex flex-col ">
           <strong
             style={{
@@ -30,7 +34,8 @@ const Page = () => {
         </div>
       </div>
 
-      <Empresas />
+      {/* <Empresas /> */}
+      <DataTable columns={empresacolumns} data={getEmpresas} />
     </div>
   );
 };
