@@ -3,13 +3,48 @@ import Image from "next/image";
 import { DataTable } from "./_component/data-table";
 
 import { db } from "@/lib/prisma";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import FormAddUpdateEmpresa from "./_component/_form-add-update-empresa/page";
+import AdicionaEmpresa from "./_component/upsert-empresa-dialog";
+import UpsertEmpresaDialog from "./_component/upsert-empresa-dialog";
+import { useState } from "react";
+import AddNovaEmpresa from "./_component/button-add-empresa";
+import SearchInput from "./_component/search-input";
+
+import { Search } from "lucide-react";
+import { findManyEmpresas } from "../_servicos/_empresa";
 
 // import { createEmpresa } from "./_actions/_create-empresa";
 
-const Page = async () => {
+const Page = async (searchParams?: string) => {
+  // const buscarEmmpresa = async () => {
+  //   await db.empresa.findMany({});
+  // };
+  // async function getServerSideProps() {
+  //   const empresa = await db.empresa.findMany(); // Substitua 'user' pelo seu modelo
+  //   return {
+  //     props: {
+  //       empresa,
+  //     },
+  //   };
+  // }
   const getEmpresas = await db.empresa.findMany({
-    take: 10,
+    where: {
+      cpf_cnpj: {
+        contains: !searchParams ? searchParams : "", // Pesquisa parcial
+        // Ignora maiúsculas e minúsculas
+      },
+    },
   });
+  //
+  // console.log(getServerSideProps);
+
+  // function handleSubmit(event: any): void {
+  //   searchParams = "33";
+  //   //  throw new Error("Function not implemented.");
+  // }
+
   return (
     <div className="flex flex-col p-4">
       <div className="flex items-center gap-4 p-4">
@@ -33,8 +68,6 @@ const Page = async () => {
           </span>
         </div>
       </div>
-
-      {/* <Empresas /> */}
       <DataTable columns={empresacolumns} data={getEmpresas} />
     </div>
   );

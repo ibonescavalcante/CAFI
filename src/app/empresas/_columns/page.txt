@@ -1,9 +1,22 @@
 "use client";
 import * as React from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { Empresa } from "@prisma/client";
+// import { Empresa } from "@prisma/client";
 import EditEmpresa from "../_component/button-Edit-empresa";
 import DeletaEmpresa from "../_component/button-Deleta-empresa";
+
+interface Empresa {
+  id: number;
+  cpf_cnpj: string;
+  razao_social: string;
+  nome_fantasia: string;
+  tipo_ocorrencia: string;
+  motivo: string;
+  uasg_sancionadora: string;
+  prazo_inicial: string;
+  prazo_final: string;
+  userId: number;
+}
 
 export const empresacolumns: ColumnDef<Empresa>[] = [
   {
