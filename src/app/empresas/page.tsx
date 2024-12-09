@@ -1,52 +1,32 @@
 import { empresacolumns } from "./_columns/page";
 import Image from "next/image";
 import { DataTable } from "./_component/data-table";
-
 import { db } from "@/lib/prisma";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import FormAddUpdateEmpresa from "./_component/_form-add-update-empresa/page";
-import AdicionaEmpresa from "./_component/upsert-empresa-dialog";
-import UpsertEmpresaDialog from "./_component/upsert-empresa-dialog";
-import { useState } from "react";
-import AddNovaEmpresa from "./_component/button-add-empresa";
-import SearchInput from "./_component/search-input";
-
-import { Search } from "lucide-react";
+import { NextRequest } from "next/server";
 import { findManyEmpresas } from "../_servicos/_empresa";
+interface EmpresaPageProps {
+  id?: string;
+  filter?: string;
+}
+const Page = async (request: any) => {
+  const searchParams = new URLSearchParams(request.searchParams);
+  let filter = searchParams.get("filter") ?? "";
 
-// import { createEmpresa } from "./_actions/_create-empresa";
+  console.log(filter);
 
-const Page = async (searchParams?: string) => {
-  // const buscarEmmpresa = async () => {
-  //   await db.empresa.findMany({});
-  // };
-  // async function getServerSideProps() {
-  //   const empresa = await db.empresa.findMany(); // Substitua 'user' pelo seu modelo
-  //   return {
-  //     props: {
-  //       empresa,
+  const getEmpresas = await findManyEmpresas(filter); // db.empresa.findMany({
+
+  //   where: {
+  //     cpf_cnpj: {
+  //       contains: filter ? filter : "", // Pesquisa parcial
+  //       // Ignora maiúsculas e minúsculas
   //     },
-  //   };
-  // }
-  const getEmpresas = await db.empresa.findMany({
-    where: {
-      cpf_cnpj: {
-        contains: !searchParams ? searchParams : "", // Pesquisa parcial
-        // Ignora maiúsculas e minúsculas
-      },
-    },
-  });
-  //
-  // console.log(getServerSideProps);
-
-  // function handleSubmit(event: any): void {
-  //   searchParams = "33";
-  //   //  throw new Error("Function not implemented.");
-  // }
+  //   },
+  // });
 
   return (
     <div className="flex flex-col p-4">
+      <h1>Empresa </h1>
       <div className="flex items-center gap-4 p-4">
         <Image width="50" height="40" alt="Empreasa" src="/img/Company.png" />
 

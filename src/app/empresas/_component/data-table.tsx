@@ -1,6 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
 import {
   Table,
@@ -35,6 +37,14 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
+  const rota = useRouter();
+  const handleFilter = (event: any) => {
+    let filter = event.target.value;
+    table.getColumn("cpf_cnpj")?.setFilterValue(filter);
+    if (!table.getRowModel().rows?.length) {
+      rota.push("/empresas?filter=" + filter);
+    }
+  };
 
   const table = useReactTable({
     data,
@@ -47,21 +57,18 @@ export function DataTable<TData, TValue>({
       columnFilters,
     },
   });
-  console.log(table.getRowModel().rows?.length);
+
   return (
     <>
       <div className="flex items-center justify-between py-4">
         <div className="flex items-center ">
           <Input
             placeholder="Buscar empresas..."
-            value={
-              (table.getColumn("cpf_cnpj")?.getFilterValue() as string) ?? ""
-            }
-            onChange={(event) =>
-              table.getColumn("cpf_cnpj")?.setFilterValue(event.target.value)
-            }
+            // onChange={(e) => debounced(e.target.value)}
+            onChange={(e) => handleFilter(e)}
             className="max-w-sm"
           />
+
           <Search className=" relative right-9 text-gray-500" />
         </div>
         <AddNovaEmpresa />
@@ -109,7 +116,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Sem resultados.
                 </TableCell>
               </TableRow>
             )}
@@ -123,7 +130,7 @@ export function DataTable<TData, TValue>({
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          Anterior
         </Button>
         <Button
           variant="outline"
@@ -131,7 +138,7 @@ export function DataTable<TData, TValue>({
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          Próximo
         </Button>
       </div>
     </>

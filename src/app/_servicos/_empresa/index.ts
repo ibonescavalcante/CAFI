@@ -34,41 +34,21 @@ const deleteEmpresa = async (empresaID: number) => {
   revalidatePath("/empresas");
 };
 
-interface EmpresaInterface {
-  data: [];
-  totalPages: number;
-  currentPage: number;
-  cpfcnpj: string;
-}
-
 const findManyEmpresas = async (cpfcnpj: string) => {
   // if (page < 1 || limit < 1) {
   //   throw new Error("Page and limit must be greater than 0");
   // }
   // const empresas = await db.empresa.findMany();
-  // console.log(empresas);
-  return await db.empresa.findMany();
-  const totalRecords = await db.empresa.count({
+  console.log(cpfcnpj);
+  return await db.empresa.findMany({
     where: {
-      cpf_cnpj: cpfcnpj,
+      cpf_cnpj: {
+        contains: cpfcnpj,
+      },
     },
+    // take: cpfcnpj !== "" ? 5 : 10,
+    take: 5,
   });
-
-  // Calcular o total de páginas
-  const totalPages = Math.ceil(totalRecords / 10);
-
-  // Garantir que a página solicitada não seja maior que o número de páginas
-  // const currentPage = Math.min(page, totalPages);
-
-  const data = await db.empresa.findMany({
-    where: {
-      cpf_cnpj: cpfcnpj,
-    },
-    // skip: (currentPage - 1) * 10,
-    take: 10,
-  });
-
-  console.dir(data, { depth: null });
 };
 
 export { upInsertEmpresa, deleteEmpresa, findManyEmpresas };
