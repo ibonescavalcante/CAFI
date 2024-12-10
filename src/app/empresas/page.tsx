@@ -1,29 +1,52 @@
-import { empresacolumns } from "./_columns/page";
+import { Payment, columns } from "../../components/empresa/_columns/page";
 import Image from "next/image";
-import { DataTable } from "./_component/data-table";
-import { db } from "@/lib/prisma";
+import { DataTable } from "../../components/empresa/data-table";
+import { findManyEmpresas } from "../../servicos/_empresa";
 import { NextRequest } from "next/server";
-import { findManyEmpresas } from "../_servicos/_empresa";
-interface EmpresaPageProps {
-  id?: string;
-  filter?: string;
+
+// import { EmpresaSchema } from "@/types/empresas-dto";
+// interface EmpresaPros {
+//   id: number;
+//   cpf_cnpj: string;
+//   razao_social: string;
+//   nome_fantasia: string;
+//   tipo_ocorrencia: string;
+//   motivo: "";
+//   uasg_sancionadora: string;
+//   prazo_inicial: string;
+//   prazo_final: string;
+//   numero_do_processo: string;
+//   numero_do_contrato: string;
+//   valor_da_multa: string;
+//   descricao_justificativa: string;
+// }
+async function getData(): Promise<Payment[]> {
+  // Fetch data from your API here.
+  return [
+    {
+      id: "728ed52f",
+      amount: 100,
+      status: "pending",
+      email: "m@example.com",
+    },
+    {
+      id: "728ed55f",
+      amount: 100,
+      status: "pending",
+      email: "m@example.com",
+    },
+    // ...
+  ];
 }
-const Page = async (request: any) => {
-  const searchParams = new URLSearchParams(request.searchParams);
-  let filter = searchParams.get("filter") ?? "";
+const Page = async (req: any) => {
+  // const search = JSON.parse(JSON.stringify(req));
 
-  console.log(filter);
-
-  const getEmpresas = await findManyEmpresas(filter); // db.empresa.findMany({
-
-  //   where: {
-  //     cpf_cnpj: {
-  //       contains: filter ? filter : "", // Pesquisa parcial
-  //       // Ignora maiúsculas e minúsculas
-  //     },
-  //   },
-  // });
-
+  const getEmpresas = await findManyEmpresas(req.searchParams.filter);
+  // const getEmpresas = EmpresaSchema.parse(
+  //   findManyEmpresas(search.searchParams.filter)
+  // );
+  console.log(getEmpresas);
+  const data = await getData();
   return (
     <div className="flex flex-col p-4">
       <h1>Empresa </h1>
@@ -48,7 +71,8 @@ const Page = async (request: any) => {
           </span>
         </div>
       </div>
-      <DataTable columns={empresacolumns} data={getEmpresas} />
+      <DataTable columns={columns} data={data} />
+      {/* <DataTable columns={empresacolumns} data={getEmpresas} /> */}
     </div>
   );
 };

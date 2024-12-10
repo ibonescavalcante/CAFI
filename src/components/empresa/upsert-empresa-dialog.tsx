@@ -1,4 +1,4 @@
-import { upInsertEmpresa } from "@/app/_servicos/_empresa";
+import { upInsertEmpresa } from "@/servicos/_empresa";
 import { Button } from "@/components/ui/button";
 
 import {

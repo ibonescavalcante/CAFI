@@ -1,5 +1,5 @@
 "use client";
-import From from "@/app/_componentes/form/page";
+import From from "@/components/form/page";
 
 import { useState } from "react";
 

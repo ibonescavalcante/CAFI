@@ -12,7 +12,7 @@ export const EmpresaSchema = z.object({
   prazo_final: z.string(),
   numero_do_processo: z.string().min(1),
   numero_do_contrato: z.string(),
-  valor_da_multa: z.string(),
+  valor_da_multa: z.string().optional().default(""),
   descricao_justificativa: z.string(),
   userId: z.number().optional().default(1), // Referência ao usuário
 });

@@ -38,12 +38,22 @@ export function DataTable<TData, TValue>({
     []
   );
   const rota = useRouter();
-  const handleFilter = (event: any) => {
+
+  const handleFilter = async (event: any) => {
     let filter = event.target.value;
-    table.getColumn("cpf_cnpj")?.setFilterValue(filter);
+    table.getColumn("cpf_cnpj")?.setFilterValue(event.target.value);
     if (!table.getRowModel().rows?.length) {
       rota.push("/empresas?filter=" + filter);
     }
+
+    // if (!table.getRowModel().rows?.length)
+    //   await fetch(`http://localhost:3000/empresas?${params}`, {
+    //     // method: "POST",
+    //     // headers: { "Content-Type": "application/json" },
+    //     // next: {
+    //     //   tags: event.target.value,
+    //     // },
+    //   });
   };
 
   const table = useReactTable({
@@ -64,7 +74,6 @@ export function DataTable<TData, TValue>({
         <div className="flex items-center ">
           <Input
             placeholder="Buscar empresas..."
-            // onChange={(e) => debounced(e.target.value)}
             onChange={(e) => handleFilter(e)}
             className="max-w-sm"
           />
@@ -73,6 +82,7 @@ export function DataTable<TData, TValue>({
         </div>
         <AddNovaEmpresa />
       </div>
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>

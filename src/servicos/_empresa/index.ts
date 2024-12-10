@@ -35,10 +35,6 @@ const deleteEmpresa = async (empresaID: number) => {
 };
 
 const findManyEmpresas = async (cpfcnpj: string) => {
-  // if (page < 1 || limit < 1) {
-  //   throw new Error("Page and limit must be greater than 0");
-  // }
-  // const empresas = await db.empresa.findMany();
   console.log(cpfcnpj);
   return await db.empresa.findMany({
     where: {
