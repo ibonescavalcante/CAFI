@@ -45,15 +45,6 @@ export function DataTable<TData, TValue>({
     if (!table.getRowModel().rows?.length) {
       rota.push("/empresas?filter=" + filter);
     }
-
-    // if (!table.getRowModel().rows?.length)
-    //   await fetch(`http://localhost:3000/empresas?${params}`, {
-    //     // method: "POST",
-    //     // headers: { "Content-Type": "application/json" },
-    //     // next: {
-    //     //   tags: event.target.value,
-    //     // },
-    //   });
   };
 
   const table = useReactTable({

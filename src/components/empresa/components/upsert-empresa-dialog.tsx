@@ -24,10 +24,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { EmpresaInterfaceSchema, EmpresaSchema } from "@/@types/empresas-dto";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Empresa } from "@prisma/client";
 
 interface UpsertEmpresaDialogProps {
   isOpen: boolean;
-  defaultValues?: any;
+  defaultValues?: Empresa;
   empresaId?: number;
   setIsOpen: (isOpen: boolean) => void;
 }
@@ -35,18 +36,23 @@ interface UpsertEmpresaDialogProps {
 const UpsertEmpresaDialog = ({
   isOpen,
   defaultValues,
-  empresaId,
+
   setIsOpen,
 }: UpsertEmpresaDialogProps) => {
   //   const FormAddUpdateEmpresa = ({ defaultValues }: any) => {
+
+  // console.log(isOpen);
+  // // console.log(empresaId);
+  // console.log(defaultValues);
+
   const form = useForm<EmpresaInterfaceSchema>({
     resolver: zodResolver(EmpresaSchema),
     defaultValues: defaultValues,
   });
 
-  const isUpdate = Boolean(empresaId);
+  const isUpdate = Boolean(defaultValues?.id);
   const onSubmit = async (data: EmpresaInterfaceSchema) => {
-    console.log(data);
+    // console.log("Upinsert-empresa-dialog", data);
     try {
       await upInsertEmpresa(data);
 

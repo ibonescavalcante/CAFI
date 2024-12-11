@@ -2,8 +2,8 @@
 import * as React from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Empresa } from "@prisma/client";
-import EditEmpresa from "../button-Edit-empresa";
-import DeletaEmpresa from "../button-Deleta-empresa";
+import EditEmpresa from "../components/button-Edit-empresa";
+import DeletaEmpresa from "../components/button-Deleta-empresa";
 
 export const empresacolumns: ColumnDef<Empresa>[] = [
   {
@@ -106,24 +106,3 @@ export const empresacolumns: ColumnDef<Empresa>[] = [
     },
   },
 ];
-
-// export type Payment = {
-//   id: string;
-//   amount: number;
-//   status: string;
-//   email: string;
-// };
-// export const columns: ColumnDef<Payment>[] = [
-//   {
-//     accessorKey: "status",
-//     header: "Status",
-//   },
-//   {
-//     accessorKey: "email",
-//     header: "Email",
-//   },
-//   {
-//     accessorKey: "amount",
-//     header: "Amount",
-//   },
-// ];

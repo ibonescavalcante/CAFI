@@ -2,11 +2,11 @@
 import { db } from "@/lib/prisma";
 import { EmpresaInterfaceSchema, EmpresaSchema } from "@/@types/empresas-dto";
 import { revalidatePath } from "next/cache";
-import { Empresa } from "@prisma/client";
-import { throwDeprecation } from "process";
+// import { Empresa } from "@prisma/client";
+// import { throwDeprecation } from "process";
 
 const upInsertEmpresa = async (empresa: EmpresaInterfaceSchema) => {
-  console.log("Insert", empresa);
+  // console.log("Insert", empresa);
   const userId = 1;
   //verifica se usuario exite
   //   EmpresaSchema.parse(empresa);
@@ -22,7 +22,7 @@ const upInsertEmpresa = async (empresa: EmpresaInterfaceSchema) => {
 };
 
 const deleteEmpresa = async (empresaID: number) => {
-  console.log("Delete", empresaID);
+  // console.log("Delete", empresaID);
   const userId = 1;
   //verifica se usuario exite
   await db.empresa.delete({
@@ -35,7 +35,7 @@ const deleteEmpresa = async (empresaID: number) => {
 };
 
 const findManyEmpresas = async (cpfcnpj: string) => {
-  console.log(cpfcnpj);
+  // console.log(cpfcnpj);
   return await db.empresa.findMany({
     where: {
       cpf_cnpj: {
@@ -43,7 +43,7 @@ const findManyEmpresas = async (cpfcnpj: string) => {
       },
     },
     // take: cpfcnpj !== "" ? 5 : 10,
-    take: 5,
+    take: 10,
   });
 };
 
