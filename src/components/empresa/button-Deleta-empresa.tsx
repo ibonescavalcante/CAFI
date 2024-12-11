@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
-import { deleteEmpresa } from "@/servicos/_empresa";
+import { deleteEmpresa } from "@/servicos/empresa";
 
 interface EmpresaI {
   id: number;

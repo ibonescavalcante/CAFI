@@ -1,7 +1,17 @@
 "use client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { MenuIcon } from "lucide-react";
 
 export default function Page() {
   const empresas = (
@@ -42,8 +52,8 @@ export default function Page() {
   );
   const Menus = [
     { title: "Usuario", src: user1, select: false, path: "/usuarios" },
-    { title: "Empresas", src: empresas, gap: false, path: "empresas" },
-    { title: "Sair", src: sair, path: "/login" },
+    { title: "Empresas", src: empresas, gap: false, path: "/empresas" },
+    // { title: "Sair", src: sair, path: "/login" },
     // { title: "Triagem", src: "Triagem.png" },
     // { title: "Configuração", src: "configuracao.png" },
     // { title: "Acesso Gerencial", src: "Usuario.png" , select:false },
@@ -57,6 +67,14 @@ export default function Page() {
     // { title: "Serviços", src: "Servicos.png" },
   ];
   const [open, setOpen] = useState(true);
+  const people = [
+    {
+      name: "Calvin Hawkins",
+      tipo: "Admin",
+      image:
+        "https://i.pinimg.com/236x/19/bd/eb/19bdeb93ad73ce5ead4800d254c51008.jpg",
+    },
+  ];
   return (
     <>
       <div
@@ -87,13 +105,49 @@ export default function Page() {
             CMEP
           </h1>
         </div>
-        <div className="flex items-center  border  py-6">
+        <div className="p-4 w-full border bg-white rounded-sm shadow-sm">
+          <ul className="divide-y divide-gray-200">
+            {people.map((person) => (
+              <li key={person.tipo} className="py-4 flex">
+                <img
+                  className="size-10 rounded-full"
+                  src={person.image}
+                  alt=""
+                />
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-gray-900">
+                    {person.name}
+                  </p>
+
+                  <p className="text-sm text-gray-500">{person.tipo}</p>
+
+                  <div>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <MenuIcon />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        {/* <DropdownMenuLabel>Meu perfil</DropdownMenuLabel>
+                        <DropdownMenuSeparator /> */}
+                        <DropdownMenuItem>Altera Imgaem</DropdownMenuItem>
+                        <DropdownMenuItem>Mudar senha</DropdownMenuItem>
+                        <DropdownMenuItem>Sair</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        {/* <div className="flex items-center  border  py-6">
           <Skeleton className="h-12 w-12 rounded-full" />
           <div className="space-y-2">
             <Skeleton className="h-4 w-[150px]" />
             <Skeleton className="h-4 w-[100px]" />
           </div>
-        </div>
+        </div> */}
+
         <ul>
           {Menus.map((menu, index) => (
             <Link key={index} href={menu.path}>

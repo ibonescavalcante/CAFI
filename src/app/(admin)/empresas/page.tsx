@@ -1,7 +1,7 @@
-import { Payment, columns } from "../../components/empresa/_columns/page";
+import { empresacolumns } from "../../../components/empresa/_columns/page";
 import Image from "next/image";
-import { DataTable } from "../../components/empresa/data-table";
-import { findManyEmpresas } from "../../servicos/_empresa";
+import { DataTable } from "../../../components/empresa/data-table";
+import { findManyEmpresas } from "../../../servicos/empresa";
 import { NextRequest } from "next/server";
 
 // import { EmpresaSchema } from "@/types/empresas-dto";
@@ -20,24 +20,24 @@ import { NextRequest } from "next/server";
 //   valor_da_multa: string;
 //   descricao_justificativa: string;
 // }
-async function getData(): Promise<Payment[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed55f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    // ...
-  ];
-}
+// async function getData(): Promise<Payment[]> {
+//   // Fetch data from your API here.
+//   return [
+//     {
+//       id: "728ed52f",
+//       amount: 100,
+//       status: "pending",
+//       email: "m@example.com",
+//     },
+//     {
+//       id: "728ed55f",
+//       amount: 100,
+//       status: "pending",
+//       email: "m@example.com",
+//     },
+//     // ...
+//   ];
+// }
 const Page = async (req: any) => {
   // const search = JSON.parse(JSON.stringify(req));
 
@@ -46,7 +46,7 @@ const Page = async (req: any) => {
   //   findManyEmpresas(search.searchParams.filter)
   // );
   console.log(getEmpresas);
-  const data = await getData();
+  // const data = await getData();
   return (
     <div className="flex flex-col p-4">
       <h1>Empresa </h1>
@@ -71,8 +71,8 @@ const Page = async (req: any) => {
           </span>
         </div>
       </div>
-      <DataTable columns={columns} data={data} />
-      {/* <DataTable columns={empresacolumns} data={getEmpresas} /> */}
+      {/* <DataTable columns={columns} data={data} /> */}
+      <DataTable columns={empresacolumns} data={getEmpresas} />
     </div>
   );
 };

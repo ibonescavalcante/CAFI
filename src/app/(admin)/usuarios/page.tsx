@@ -1,4 +1,4 @@
-import Usuarios from "../../components/usuario/_columns/page";
+// import Usuarios from "../../../components/usuario/_columns/page";
 
 import Image from "next/image";
 
@@ -27,7 +27,7 @@ export default function Page() {
         </div>
       </div>
 
-      <Usuarios />
+      {/* <Usuarios /> */}
     </div>
   );
 }

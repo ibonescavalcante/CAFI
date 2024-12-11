@@ -1,6 +1,6 @@
 "use server";
 import { db } from "@/lib/prisma";
-import { EmpresaInterfaceSchema, EmpresaSchema } from "@/types/empresas-dto";
+import { EmpresaInterfaceSchema, EmpresaSchema } from "@/@types/empresas-dto";
 import { revalidatePath } from "next/cache";
 import { Empresa } from "@prisma/client";
 import { throwDeprecation } from "process";
