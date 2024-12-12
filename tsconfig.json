@@ -26,7 +26,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/empresa/_columns/page.tsx2",
     "src/components/empresa/_columns/page.tx2"
   ],
   "exclude": ["node_modules"]

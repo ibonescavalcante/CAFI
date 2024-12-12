@@ -75,6 +75,8 @@ export default function Page() {
         "https://i.pinimg.com/236x/19/bd/eb/19bdeb93ad73ce5ead4800d254c51008.jpg",
     },
   ];
+  let teste: boolean = false;
+  if (teste) return null;
   return (
     <>
       <div
