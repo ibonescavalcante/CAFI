@@ -308,4 +308,4 @@ const UpsertUserDialog = ({
   );
 };
 
-export default UpsertEmpresaDialog;
+export default UpsertUserDialog;

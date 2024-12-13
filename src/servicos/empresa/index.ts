@@ -2,6 +2,7 @@
 import { db } from "@/lib/prisma";
 import { EmpresaInterfaceSchema, EmpresaSchema } from "@/@types/empresas-dto";
 import { revalidatePath } from "next/cache";
+
 // import { Empresa } from "@prisma/client";
 // import { throwDeprecation } from "process";
 
@@ -9,7 +10,7 @@ const upInsertEmpresa = async (empresa: EmpresaInterfaceSchema) => {
   // console.log("Insert", empresa);
   const userId = 1;
   //verifica se usuario exite
-  //   EmpresaSchema.parse(empresa);
+  EmpresaSchema.parse(empresa);
   await db.empresa.upsert({
     where: {
       id: empresa.id ?? 0,

@@ -1,8 +1,12 @@
 // import Usuarios from "../../../components/usuario/_columns/page";
 
+import { usuarioscolumns } from "@/components/usuario/_columns/page";
+import { DataTable } from "@/components/usuario/components/data-table";
+import { findManyUsers } from "@/servicos/usuario";
 import Image from "next/image";
 
-export default function Page() {
+const Page = async (req: any) => {
+  const getUsers = await findManyUsers(req.searchParams.filter);
   return (
     <div className="flex flex-col p-4">
       <div className="flex items-center gap-4 p-4">
@@ -21,13 +25,13 @@ export default function Page() {
             style={{ fontSmooth: "auto", fontWeight: "normal" }}
             className="-mt-1 pl-1 text-sm  text-gray-500"
           >
-            {" "}
             Visualize os usuarios cadastradas no sistema.
           </span>
         </div>
       </div>
 
-      {/* <Usuarios /> */}
+      <DataTable columns={usuarioscolumns} data={getUsers} />
     </div>
   );
-}
+};
+export default Page;

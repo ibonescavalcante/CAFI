@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "prisma": {
+    "seed": "node --loader ts-node/esm prisma/seed.ts"
+  },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
     "@nextui-org/react": "^2.4.8",
@@ -19,6 +22,9 @@
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@tanstack/react-table": "^8.20.5",
+    "@types/bcrypt": "^5.0.2",
+    "@types/bcryptjs": "^2.4.6",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.17",
@@ -28,7 +34,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.53.2",
-    "shadcn": "^2.1.6",
+    "shadcn": "^1.0.0",
     "skeleton": "^0.1.2",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
@@ -36,7 +42,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/node": "^20.16.11",
+    "@types/node": "^20.17.10",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
@@ -45,6 +51,6 @@
     "prisma": "^5.20.0",
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.2"
+    "typescript": "^5.7.2"
   }
 }

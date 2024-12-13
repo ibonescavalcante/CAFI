@@ -6,6 +6,7 @@ import { empresacolumns } from "@/components/empresa/_columns/page";
 
 const Page = async (req: any) => {
   const getEmpresas = await findManyEmpresas(req.searchParams.filter);
+
   return (
     <div className="flex flex-col p-4">
       <h1>Empresa </h1>
