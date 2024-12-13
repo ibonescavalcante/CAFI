@@ -18,7 +18,7 @@ const AddNovaEmpresa = () => {
         }}
       >
         <Plus />
-        Nova Empresa
+        Novo Usuário
       </Button>
 
       <UpsertEmpresaDialog isOpen={dialogIsOpen} setIsOpen={setDialogIsOpen} />

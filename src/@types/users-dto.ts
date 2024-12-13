@@ -7,6 +7,7 @@ export const UserSchema = z.object({
   tipo: z.string().min(1),
   status: z.string().min(1),
   senha: z.string().min(6),
+  confirma_senha: z.string().optional(),
 });
 
 export type UserInterfaceSchema = z.infer<typeof UserSchema>;

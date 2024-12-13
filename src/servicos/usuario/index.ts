@@ -23,13 +23,14 @@ const createUsuarios = async (usuario: UserInterfaceSchema) => {
   revalidatePath("/usuarios");
 };
 const findManyUsers = async (nome: string) => {
-  // console.log(cpfcnpj);
+  console.log(nome);
   return await db.user.findMany({
     where: {
       user: {
         contains: nome,
       },
     },
+    orderBy: { nome: "asc" },
     // take: cpfcnpj !== "" ? 5 : 10,
     take: 10,
   });

@@ -25,6 +25,8 @@ import { EmpresaInterfaceSchema, EmpresaSchema } from "@/@types/empresas-dto";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { User } from "@prisma/client";
+import { createUsuarios } from "@/servicos/usuario";
+import { UserInterfaceSchema, UserSchema } from "@/@types/users-dto";
 
 interface UpsertUserDialogProps {
   isOpen: boolean;
@@ -45,16 +47,16 @@ const UpsertUserDialog = ({
   // // console.log(empresaId);
   // console.log(defaultValues);
 
-  const form = useForm<EmpresaInterfaceSchema>({
-    resolver: zodResolver(EmpresaSchema),
+  const form = useForm<UserInterfaceSchema>({
+    resolver: zodResolver(UserSchema),
     defaultValues: defaultValues,
   });
 
   const isUpdate = Boolean(defaultValues?.id);
-  const onSubmit = async (data: EmpresaInterfaceSchema) => {
+  const onSubmit = async (data: UserInterfaceSchema) => {
     // console.log("Upinsert-empresa-dialog", data);
     try {
-      await upInsertEmpresa(data);
+      await createUsuarios(data);
 
       form.reset();
       setIsOpen(false);
@@ -83,10 +85,10 @@ const UpsertUserDialog = ({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {isUpdate ? "Atualizar Empresa" : "Cadastre uma Nova Empresa"}
+              {isUpdate ? "Atualizar Usuário" : "Cadastre um novo usuário"}
             </DialogTitle>
             <DialogDescription>
-              Insira os dados da empresa que sera adicionada no sistema.
+              Insira os dados do Usuário que sera adicionada no sistema.
             </DialogDescription>
           </DialogHeader>
 
@@ -95,15 +97,12 @@ const UpsertUserDialog = ({
               <div className="grid grid-cols-2  gap-4">
                 <FormField
                   control={form.control}
-                  name="cpf_cnpj"
+                  name="nome"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>CPF/CNPJ</FormLabel>
+                      <FormLabel>Nome</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="Digite o cpf ou cnpj..."
-                          {...field}
-                        />
+                        <Input placeholder="Digite o nome..." {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -112,15 +111,12 @@ const UpsertUserDialog = ({
 
                 <FormField
                   control={form.control}
-                  name="razao_social"
+                  name="user"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Razão Social</FormLabel>
+                      <FormLabel>Usuário</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="Digite a razão social..."
-                          {...field}
-                        />
+                        <Input placeholder="Digite o usuário..." {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -129,10 +125,10 @@ const UpsertUserDialog = ({
 
                 <FormField
                   control={form.control}
-                  name="nome_fantasia"
+                  name="tipo"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nome Fantasia</FormLabel>
+                      <FormLabel>Tipo de usuário</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Digite o nome fantasia..."
@@ -146,13 +142,27 @@ const UpsertUserDialog = ({
 
                 <FormField
                   control={form.control}
-                  name="tipo_ocorrencia"
+                  name="status"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Tipo de Ocorrencia</FormLabel>
+                      <FormLabel>Status</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Digite o status..." {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="senha"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Senha</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Digite o tipo de ocorrencia..."
+                          type="password"
+                          placeholder="Digite o status..."
                           {...field}
                         />
                       </FormControl>
@@ -160,111 +170,16 @@ const UpsertUserDialog = ({
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
-                  name="motivo"
+                  name="confirma_senha"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Motivo</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Digite o motivo..." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="uasg_sancionadora"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Sancionadora</FormLabel>
+                      <FormLabel>Confirma senha</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Digite a unidade sancionadora..."
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="prazo_inicial"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Prazo Inicial</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Digite prazo inicial..."
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="prazo_final"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Prazo Final</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Digite prazo final..." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="numero_do_processo"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Número do processo</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Digite o número do processo..."
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="numero_do_contrato"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Número do contrato</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Digite o número do contrato..."
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="valor_da_multa"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Valor da Multa</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Digite o valor da multa..."
+                          type="password"
+                          placeholder="Digite o status..."
                           {...field}
                         />
                       </FormControl>
@@ -273,22 +188,6 @@ const UpsertUserDialog = ({
                   )}
                 />
               </div>
-              <FormField
-                control={form.control}
-                name="descricao_justificativa"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Justificativa</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Digite uma justificativa..."
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
 
               <DialogFooter className="p-4 w-full border-0 text-center">
                 <DialogClose asChild>

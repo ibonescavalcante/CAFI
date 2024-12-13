@@ -4,6 +4,7 @@ import { Edit } from "lucide-react";
 import { useState } from "react";
 import UpsertEmpresaDialog from "./upsert-user-dialog";
 import { User } from "@prisma/client";
+import UpsertUserDialog from "./upsert-user-dialog";
 
 interface EditUserButtonProps {
   user: User;
@@ -24,7 +25,7 @@ const EditEmpresa = ({ user }: EditUserButtonProps) => {
         <Edit />
       </Button>
 
-      <UpsertEmpresaDialog
+      <UpsertUserDialog
         isOpen={dialogIsOpen}
         setIsOpen={setDialogIsOpen}
         defaultValues={user}

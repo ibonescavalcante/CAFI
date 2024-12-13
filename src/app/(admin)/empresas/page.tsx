@@ -9,7 +9,6 @@ const Page = async (req: any) => {
 
   return (
     <div className="flex flex-col p-4">
-      <h1>Empresa </h1>
       <div className="flex items-center gap-4 p-4">
         <Image width="50" height="40" alt="Empreasa" src="/img/Company.png" />
 

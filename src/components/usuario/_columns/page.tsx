@@ -7,6 +7,11 @@ import DeletaUser from "../components/button-Deleta-user";
 
 export const usuarioscolumns: ColumnDef<User>[] = [
   {
+    accessorKey: "nome",
+    header: "Nome",
+    cell: ({ row }) => <div className="capitalize">{row.getValue("nome")}</div>,
+  },
+  {
     accessorKey: "user",
     header: "Usuário",
     cell: ({ row }) => <div className="capitalize">{row.getValue("user")}</div>,
@@ -16,7 +21,13 @@ export const usuarioscolumns: ColumnDef<User>[] = [
     header: "Tipo",
     cell: ({ row }) => <div className="lowercase">{row.getValue("tipo")}</div>,
   },
-
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => (
+      <div className="lowercase">{row.getValue("status")}</div>
+    ),
+  },
   {
     id: "actions",
     header: "Ações",
