@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
 import { useState } from "react";
-import UpsertEmpresaDialog from "./upsert-user-dialog";
 import { User } from "@prisma/client";
 import UpsertUserDialog from "./upsert-user-dialog";
 

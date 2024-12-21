@@ -25,6 +25,13 @@ const createUsuarios = async (usuario: UserInterfaceSchema) => {
 const findManyUsers = async (nome: string) => {
   console.log(nome);
   return await db.user.findMany({
+    select: {
+      id: true,
+      nome: true,
+      user: true,
+      tipo: true,
+      status: true,
+    },
     where: {
       user: {
         contains: nome,

@@ -41,9 +41,9 @@ export function DataTable<TData, TValue>({
 
   const handleFilter = async (event: any) => {
     let filter = event.target.value;
-    table.getColumn("cpf_cnpj")?.setFilterValue(event.target.value);
+    table.getColumn("user")?.setFilterValue(event.target.value);
     if (!table.getRowModel().rows?.length) {
-      rota.push("/empresas?filter=" + filter);
+      rota.push("/usuarios?filter=" + filter);
     }
   };
 
@@ -64,7 +64,7 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center justify-between py-4">
         <div className="flex items-center ">
           <Input
-            placeholder="Buscar empresas..."
+            placeholder="Buscar usuário..."
             onChange={(e) => handleFilter(e)}
             className="max-w-sm"
           />

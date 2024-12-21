@@ -53,14 +53,14 @@ const UpsertUserDialog = ({
   });
 
   const isUpdate = Boolean(defaultValues?.id);
-  const onSubmit = async (data: UserInterfaceSchema) => {
-    // console.log("Upinsert-empresa-dialog", data);
-    try {
-      await createUsuarios(data);
 
-      form.reset();
-      setIsOpen(false);
-    } catch (error) {}
+  const onSubmit = async (data: UserInterfaceSchema) => {
+    console.log("Upinsert-usuário-dialog", data);
+    // try {
+    // await createUsuarios(data);
+    //form.reset();
+    //  setIsOpen(false);
+    //} catch (error) {}
   };
 
   // isUpdate ? form.reset() : null;
@@ -102,7 +102,11 @@ const UpsertUserDialog = ({
                     <FormItem>
                       <FormLabel>Nome</FormLabel>
                       <FormControl>
-                        <Input placeholder="Digite o nome..." {...field} />
+                        <Input
+                          disabled
+                          placeholder="Digite o nome..."
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -116,7 +120,11 @@ const UpsertUserDialog = ({
                     <FormItem>
                       <FormLabel>Usuário</FormLabel>
                       <FormControl>
-                        <Input placeholder="Digite o usuário..." {...field} />
+                        <Input
+                          disabled
+                          placeholder="Digite o usuário..."
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

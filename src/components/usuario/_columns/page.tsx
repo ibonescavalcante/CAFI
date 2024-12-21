@@ -5,28 +5,26 @@ import { User } from "@prisma/client";
 import EditUser from "../components/button-Edit-user";
 import DeletaUser from "../components/button-Deleta-user";
 
-export const usuarioscolumns: ColumnDef<User>[] = [
+export const usuarioscolumns: ColumnDef<any>[] = [
   {
     accessorKey: "nome",
     header: "Nome",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("nome")}</div>,
+    cell: ({ row }) => <div>{row.getValue("nome")}</div>,
   },
   {
     accessorKey: "user",
     header: "Usuário",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("user")}</div>,
+    cell: ({ row }) => <div>{row.getValue("user")}</div>,
   },
   {
     accessorKey: "tipo",
     header: "Tipo",
-    cell: ({ row }) => <div className="lowercase">{row.getValue("tipo")}</div>,
+    cell: ({ row }) => <div>{row.getValue("tipo")}</div>,
   },
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => (
-      <div className="lowercase">{row.getValue("status")}</div>
-    ),
+    cell: ({ row }) => <div>{row.getValue("status")}</div>,
   },
   {
     id: "actions",

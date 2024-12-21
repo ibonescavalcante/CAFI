@@ -7,6 +7,8 @@ import Image from "next/image";
 
 const Page = async (req: any) => {
   const getUsers = await findManyUsers(req.searchParams.filter);
+
+  console.log(getUsers);
   return (
     <div className="flex flex-col p-4">
       <div className="flex items-center gap-4 p-4">
@@ -19,7 +21,7 @@ const Page = async (req: any) => {
             }}
             className="text-[32px] "
           >
-            Usuarios
+            Usuários
           </strong>
           <span
             style={{ fontSmooth: "auto", fontWeight: "normal" }}
