@@ -1,8 +1,32 @@
-import { useActionState } from "react";
+"use client";
+import { useActionStateCompat } from "@strozw/use-action-state-compat";
 import { login } from "./actions";
 
+type FormState = null | string;
+
+// const myAction = async (_state: any, data: FormData) => {
+//   return new Promise<null | string>((resolve) => {
+//     console.log(data.get("usuario"));
+//     // window.setTimeout(() => {
+//     //   if (!data.get("word")) {
+//     //     resolve("please input `word`");
+//     //   }
+//     //   resolve(null);
+//     // }, 3000);
+//   });
+// };
+
+// export default function Page() {
+//   const [currentState, action, isPending] = useActionStateCompat(
+//     myAction,
+//     null
+//   );
+//   // ...
+//   return <form action={action}>{/* ... */}</form>;
+// }
+
 export default function Page() {
-  const [state, loginAction] = useActionState(login, undefined);
+  const [currentState, action, isPending] = useActionStateCompat(login, null);
   return (
     <>
       <div className="flex items-center justify-center min-h-screen bg-white ">
@@ -14,10 +38,13 @@ export default function Page() {
             }}
             className="text-3xl font-bold te text-gray-800 text-center mb-4 "
           >
-            CMEP
+            CMEP <br />
+            {isPending}
+            <br />
+            {/* {currentState} */}
           </h1>
 
-          <form action={loginAction}>
+          <form action={action}>
             <div className="mb-4">
               {/* <label htmlFor="email" className="block  text-gray-600 mb-1">Usuário</label> */}
               <input

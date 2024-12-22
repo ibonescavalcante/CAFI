@@ -2,13 +2,15 @@
 
 import { usuarioscolumns } from "@/components/usuario/_columns/page";
 import { DataTable } from "@/components/usuario/components/data-table";
-import { findManyUsers } from "@/servicos/usuario";
+import { findManyUsers, loginUser } from "@/servicos/usuario";
 import Image from "next/image";
 
 const Page = async (req: any) => {
   const getUsers = await findManyUsers(req.searchParams.filter);
 
-  console.log(getUsers);
+  // const retuser = await loginUser("admin", "102030");
+
+  // console.log(retuser);
   return (
     <div className="flex flex-col p-4">
       <div className="flex items-center gap-4 p-4">

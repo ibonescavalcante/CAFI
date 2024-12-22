@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { decrypt } from "./lib/session";
 //rotas protegidas
-const protectedRoutes = ["/dashboard"];
+const protectedRoutes = ["/empresas", "/"];
 //rotas publicas
 const publicRoutes = ["/login"];
 
@@ -21,7 +21,7 @@ export default async function middleware(req: NextRequest) {
 
   //verifica se a rota e publica e se id do usuario esta na sessão
   if (isPublicRoute && session?.userId) {
-    return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
+    return NextResponse.redirect(new URL("/empresas", req.nextUrl));
   }
 
   return NextResponse.next();
