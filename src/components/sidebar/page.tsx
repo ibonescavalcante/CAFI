@@ -18,6 +18,7 @@ import { deleteSession } from "@/lib/session";
 import { logout } from "@/auth/auth";
 import { verifySession } from "@/lib/dal";
 import { findManyUsers } from "@/servicos/usuario";
+import { ExitIcon } from "@radix-ui/react-icons";
 
 export default function Page() {
   const empresas = (
@@ -33,6 +34,7 @@ export default function Page() {
     </svg>
   );
   const user1 = (
+    // <Image src="/user.png" width={60} height={60} alt="" />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       height="24px"
@@ -59,7 +61,7 @@ export default function Page() {
   const Menus = [
     { title: "Usuario", src: user1, select: false, path: "/usuarios" },
     { title: "Empresas", src: empresas, gap: false, path: "/empresas" },
-    // { title: "Sair", src: sair, path: "/login" },
+
     // { title: "Triagem", src: "Triagem.png" },
     // { title: "Configuração", src: "configuracao.png" },
     // { title: "Acesso Gerencial", src: "Usuario.png" , select:false },
@@ -78,91 +80,102 @@ export default function Page() {
   };
 
   console.log(urs);
-  const people = [
-    {
-      name: "Ibones Hawkins",
-      tipo: "Admin",
-      image:
-        "https://i.pinimg.com/236x/19/bd/eb/19bdeb93ad73ce5ead4800d254c51008.jpg",
-    },
-  ];
+  const people = {
+    name: "Ibones Hawkins",
+    tipo: "Admin",
+    image: "./user.png",
+  };
   let teste: boolean = false;
   if (teste) return null;
 
   return (
-    <>
-      <div
+    // <div style={style.content_sidebar}>
+    //Container side bar
+    <div className="flex bg-[#376D2B] flex-col w-72 p-2 shadow-xl gap-2">
+      {/* <div
         style={style.content_sidebar}
         className={`${
           open ? "w-72" : "w-20"
         } duration-300 h-screen p-6 pt-0 relative`}
-      >
-        {/* <div className={`${open ? "w-72" : "w-20"} duration-300 h-screen p-5 pt-8 bg-indigo-900 relative`}> */}
-        {/* <button onClick={() => setOpen(!open)}> */}
-        {/* <img src="img/pmp.png"  onClick={() => setOpen(!open)} className={`absolute cursor-pointer  rounded-full duration-500 w-10 h-10 -right-5 top-8  ${open && "rotate-[360deg]"}`} /> */}
-        {/* <img src="img/logo.png"             
+      > */}
+      {/* <div className={`${open ? "w-72" : "w-20"} duration-300 h-screen p-5 pt-8 bg-indigo-900 relative`}> */}
+      {/* <button onClick={() => setOpen(!open)}> */}
+      {/* <img src="img/pmp.png"  onClick={() => setOpen(!open)} className={`absolute cursor-pointer  rounded-full duration-500 w-10 h-10 -right-5 top-8  ${open && "rotate-[360deg]"}`} /> */}
+      {/* <img src="img/logo.png"             
             className={`absolute cursor-pointer rounded-full bg-slate-900 -right-5 top-9 w-10 h-10 border-2 border-indigo-200 ${open && "rotate-180"}`}
             className={`absolute cursor-pointer rounded-full bg-slate-900 -right-5 top-9 w-10 h-10 border-2 border-indigo-200 ${open && "rotate-180"}`}
                    />  */}
-        {/* </button> */}
-        <div className="flex  items-center">
-          {/* <img src="img/logo.png" className={`cursor-pointer duration-500 ${open && "rotate-[360deg]"}`} /> */}
-          <h1
-            style={{
-              textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-              fontWeight: "bold",
-            }}
-            className={`text-white shadow-black origin-left font-medium text-xl  p-2 text-center duration-300  w-full ${
-              !open && "scale-0"
-            }`}
-          >
-            CMEP
-          </h1>
+      {/* </button> */}
+      {/* <div className="flex  items-center"> */}
+      {/* <img src="img/logo.png" className={`cursor-pointer duration-500 ${open && "rotate-[360deg]"}`} /> */}
+      <h1
+        style={{
+          textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+          fontWeight: "bold",
+        }}
+        className={`text-white shadow-black origin-left font-medium text-xl  p-2 text-center duration-300  w-full ${
+          !open && "scale-0"
+        }`}
+      >
+        CMEP
+      </h1>
+      {/* </div> */}
+
+      {/* Perfil card */}
+      <div className="bg-white rounded-sm shadow-sm flex flex-row justify-between p-1 ">
+        {/* <ul className=""> */}
+        {/* {people[0].tipo}
+            {people.map((person) => ( */}
+        {/* <li key={person.tipo} className="flex"> */}
+        {/* <div> */}
+        <div className="flex  items-center  gap-1">
+          <div>
+            <Image
+              className="rounded-full border p-1"
+              width="32"
+              height="32"
+              src="/img/user.png"
+              alt=""
+            />
+          </div>
+
+          <div className=" ">
+            <p className="text-sm font-medium text-gray-900">{people.name}</p>
+            <p className="text-sm text-gray-500">{people.tipo}</p>
+          </div>
         </div>
-        <div className="p-4 w-full border bg-white rounded-sm shadow-sm">
-          <ul className="divide-y divide-gray-200">
-            {people.map((person) => (
-              <li key={person.tipo} className="py-4 flex">
-                <img
-                  className="size-10 rounded-full"
-                  src={person.image}
-                  alt=""
-                />
-                <div className="ml-3">
-                  <p className="text-sm font-medium text-gray-900">
-                    {person.name}
-                  </p>
-
-                  <p className="text-sm text-gray-500">{person.tipo}</p>
-
-                  <div>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <MenuIcon />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        {/* <DropdownMenuLabel>Meu perfil</DropdownMenuLabel>
+        {/* <div className="wi"> */}
+        <div className="flex justify-center ">
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              {/* <MenuIcon width={24} height={24} /> */}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              {/* <DropdownMenuLabel>Meu perfil</DropdownMenuLabel>
                         <DropdownMenuSeparator /> */}
-                        <DropdownMenuItem>Altera Imgaem</DropdownMenuItem>
-                        <DropdownMenuItem>Mudar senha</DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Button
-                            onClick={() => {
-                              logout();
-                            }}
-                          >
-                            Sair
-                          </Button>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+              <DropdownMenuItem>Altera Imgaem</DropdownMenuItem>
+              <DropdownMenuItem>Mudar senha</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Button
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  Sair
+                </Button>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-        {/* <div className="flex items-center  border  py-6">
+        {/* </div> */}
+        {/* </li>
+            ))}
+          </ul> */}
+      </div>
+
+      {/* End Perfil card */}
+
+      {/* <div className="flex items-center  border  py-6">
           <Skeleton className="h-12 w-12 rounded-full" />
           <div className="space-y-2">
             <Skeleton className="h-4 w-[150px]" />
@@ -170,58 +183,66 @@ export default function Page() {
           </div>
         </div> */}
 
-        <ul>
-          {Menus.map((menu, index) => (
-            <Link key={index} href={menu.path}>
-              <li
-                key={index}
-                style={{
-                  textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                  fontWeight: "bold",
-                }}
-                className={`text-white  text-sm flex items-center gap-x-4 
+      <ul>
+        {Menus.map((menu, index) => (
+          <Link key={index} href={menu.path}>
+            <li
+              key={index}
+              style={{
+                textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                fontWeight: "bold",
+              }}
+              className={`text-white  text-sm flex items-center gap-x-4 
                             cursor-pointer p-2 hover:bg-slate-300 hover:-z-50 rounded-md hover:text-black
                             ${menu.gap ? "mt-9" : "mt-0"} ${
-                  menu.select == true && "bg-slate-500"
-                }`}
-              >
-                {/* <img className="h-4 w-4 text-white" src={menu.src} /> */}
-                {menu.src}
-                <span
-                  className={`${!open && "hidden"} origin-left duration-200`}
-                >
-                  {menu.title}
-                </span>
-              </li>
-            </Link>
-          ))}
-          <li>
-            <Button
-              className="text-white"
-              variant="ghost"
-              onClick={() => {
-                logout();
-              }}
+                menu.select == true && "bg-slate-500"
+              }`}
             >
-              Sair
-            </Button>
-          </li>
-        </ul>
-      </div>
-    </>
+              {/* <img className="h-4 w-4 text-white" src={menu.src} /> */}
+              {menu.src}
+              <span className={`${!open && "hidden"} origin-left duration-200`}>
+                {menu.title}
+              </span>
+            </li>
+          </Link>
+        ))}
+        <li
+          style={{
+            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            fontWeight: "bold",
+          }}
+          className={`text-white  text-sm flex items-center gap-x-4 
+              cursor-pointer p-2 hover:bg-slate-300 hover:-z-50 rounded-md hover:text-black`}
+        >
+          <ExitIcon />
+          <Button
+            variant="ghost"
+            onClick={() => {
+              logout();
+            }}
+          >
+            Sair
+          </Button>
+        </li>
+      </ul>
+      {/* </div> */}
+    </div>
   );
 }
-const style = {
-  content: {
-    backgroundImage: "linear-gradient(to bottom, #FFF, #999)",
-  },
-  content_sidebar: {
-    backgroundColor: "#376D2B",
-    // backgroundImage: 'linear-gradient(to bottom, #D3D5D7, #355973)',
-    // boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
-    borderBottom: "1px solid #D7DFF9",
-    // width:'200px',
-    // display:'block' ,
-    // transition: '.5s;'
-  },
-};
+// const style = {
+//   content: {
+//     backgroundImage: "linear-gradient(to bottom, #FFF, #999)",
+//   },
+//   content_sidebar: {
+// backgroundColor: "#376D2B",
+// backgroundImage: 'linear-gradient(to bottom, #D3D5D7, #355973)',
+// boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+// borderBottom: "1px solid #D7DFF9",
+// width: "240px",
+// display: "flex",
+// flexDirection: "column",
+// transition: ".5s;",
+// padding: "10px",
+// gap: "10px",
+//   },
+// };
