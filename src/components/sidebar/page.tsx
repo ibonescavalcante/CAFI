@@ -80,7 +80,7 @@ export default function Page() {
   console.log(urs);
   const people = [
     {
-      name: "Calvin Hawkins",
+      name: "Ibones Hawkins",
       tipo: "Admin",
       image:
         "https://i.pinimg.com/236x/19/bd/eb/19bdeb93ad73ce5ead4800d254c51008.jpg",
@@ -195,6 +195,17 @@ export default function Page() {
               </li>
             </Link>
           ))}
+          <li>
+            <Button
+              className="text-white"
+              variant="ghost"
+              onClick={() => {
+                logout();
+              }}
+            >
+              Sair
+            </Button>
+          </li>
         </ul>
       </div>
     </>

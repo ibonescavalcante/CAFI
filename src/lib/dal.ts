@@ -1,3 +1,9 @@
+// DAL (Data Access Layer):
+// É uma camada de software responsável por lidar com o acesso a dados,
+// como bancos de dados, APIs, ou qualquer outra fonte de dados persistente.
+// Essa camada abstrai os detalhes de como os dados são obtidos,
+//  armazenados e manipulados, permitindo que outras partes do sistema interajam com os dados de maneira uniforme
+
 import { cookies } from "next/headers";
 import { cache } from "react";
 import { decrypt } from "./session";
