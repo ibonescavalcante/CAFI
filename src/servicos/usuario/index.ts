@@ -4,8 +4,9 @@ import { db } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { UserInterfaceSchema, UserSchema } from "@/@types/users-dto";
 import bcript from "bcrypt";
-import { createSession } from "@/lib/session";
+import { createSession, deleteSession } from "@/lib/session";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 // USUARIOS
 //usuario nao pode mudar o nome nem logi somente senha
@@ -45,25 +46,26 @@ const findManyUsers = async (nome: string) => {
   });
 };
 
-const loginUser = async (usuario: string, password: string) => {
-  const user = await db.user.findUnique({
-    where: { user: usuario, status: "ativo" },
-  });
+// const loginUser = async (usuario: string, password: string) => {
+//   const user = await db.user.findUnique({
+//     where: { user: usuario, status: "ativo" },
+//   });
 
-  if (!user) {
-    throw new Error("Usuário não encontrado");
-  }
+//   if (!user) {
+//     throw new Error("Usuário não encontrado");
+//   }
 
-  const isValid = await bcript.compare(password, user.senha);
+//   const isValid = await bcript.compare(password, user.senha);
 
-  if (!isValid) {
-    console.log("senha incorreta");
-    throw new Error("Senha incorreta");
-  }
-  // crea sessao
-  await createSession(user.id.toString());
-  redirect("/empresas");
-  // return { id: user.id, nome: user.nome, usuario: user.user, tipo: user.tipo };
-};
+//   if (!isValid) {
+//     console.log("senha incorreta");
+//     throw new Error("Senha incorreta");
+//   }
+//   // crea sessao
+//   await createSession(user.id.toString());
+//   redirect("/empresas");
 
-export { findManyUsers, createUsuarios, loginUser };
+//   // return { id: user.id, nome: user.nome, usuario: user.user, tipo: user.tipo };
+// };
+
+export { findManyUsers, createUsuarios };

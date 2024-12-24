@@ -2,7 +2,7 @@
 
 import { usuarioscolumns } from "@/components/usuario/_columns/page";
 import { DataTable } from "@/components/usuario/components/data-table";
-import { findManyUsers, loginUser } from "@/servicos/usuario";
+import { findManyUsers } from "@/servicos/usuario";
 import Image from "next/image";
 
 const Page = async (req: any) => {

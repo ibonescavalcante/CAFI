@@ -7,13 +7,15 @@ const encodedKey = new TextEncoder().encode(secretKey);
 
 type SessionPayload = {
   userId: string;
+  username: string;
   expiresAt: Date;
 };
 
 //Cria sessão
 export async function createSession(userId: string) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const session = await encrypt({ userId, expiresAt });
+  const username = "ibones";
+  const session = await encrypt({ userId, username, expiresAt });
 
   cookies().set("session", session, {
     httpOnly: true,
@@ -39,4 +41,8 @@ export async function decrypt(session: string | undefined = "") {
   } catch (error) {
     console.log("Failed to verify session");
   }
+}
+export async function deleteSession() {
+  const cookieStore = cookies();
+  cookieStore.delete("session");
 }

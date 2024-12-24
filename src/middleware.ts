@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { decrypt } from "./lib/session";
 //rotas protegidas
-const protectedRoutes = ["/empresas", "/"];
+const protectedRoutes = ["/empresas", "/", "/usuarios"];
 //rotas publicas
 const publicRoutes = ["/login"];
 
@@ -14,6 +14,7 @@ export default async function middleware(req: NextRequest) {
   const cookie = cookies().get("session")?.value;
   const session = await decrypt(cookie);
 
+  console.log(session?.username);
   //verifica se a rota e protegida e se nao tem sessao criada
   if (isProtectedRoute && !session?.userId) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));

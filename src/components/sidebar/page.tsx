@@ -3,6 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +13,11 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { MenuIcon } from "lucide-react";
+import { Button } from "../ui/button";
+import { deleteSession } from "@/lib/session";
+import { logout } from "@/auth/auth";
+import { verifySession } from "@/lib/dal";
+import { findManyUsers } from "@/servicos/usuario";
 
 export default function Page() {
   const empresas = (
@@ -67,6 +73,11 @@ export default function Page() {
     // { title: "Serviços", src: "Servicos.png" },
   ];
   const [open, setOpen] = useState(true);
+  const urs = async () => {
+    await findManyUsers("admin");
+  };
+
+  console.log(urs);
   const people = [
     {
       name: "Calvin Hawkins",
@@ -77,6 +88,7 @@ export default function Page() {
   ];
   let teste: boolean = false;
   if (teste) return null;
+
   return (
     <>
       <div
@@ -133,7 +145,15 @@ export default function Page() {
                         <DropdownMenuSeparator /> */}
                         <DropdownMenuItem>Altera Imgaem</DropdownMenuItem>
                         <DropdownMenuItem>Mudar senha</DropdownMenuItem>
-                        <DropdownMenuItem>Sair</DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <Button
+                            onClick={() => {
+                              logout();
+                            }}
+                          >
+                            Sair
+                          </Button>
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
