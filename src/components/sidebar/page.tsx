@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { MenuIcon } from "lucide-react";
+import { MenuIcon, User2Icon, UserIcon, UsersIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { deleteSession } from "@/lib/session";
 import { logout } from "@/auth/auth";
@@ -21,6 +21,11 @@ import { findManyUsers } from "@/servicos/usuario";
 import { ExitIcon } from "@radix-ui/react-icons";
 
 export default function Page() {
+  const people = {
+    name: "Ibones Hawkins",
+    tipo: "Admin",
+    image: "./user.png",
+  };
   const empresas = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -33,19 +38,24 @@ export default function Page() {
       <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z" />
     </svg>
   );
-  const user1 = (
-    // <Image src="/user.png" width={60} height={60} alt="" />
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      height="24px"
-      viewBox="0 0 24 24"
-      width="24px"
-      fill="#ffffff"
-    >
-      <path d="M0 0h24v24H0z" fill="none" />
-      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-    </svg>
-  );
+  const user1 =
+    people.tipo == "Admin" ? (
+      <UsersIcon width={24} height={24} />
+    ) : (
+      // <Image src="/img/users.png" width={24} height={24} alt="" />
+      // <Image src="/user.png" width={60} height={60} alt="" />
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24px"
+        viewBox="0 0 24 24"
+        width="24px"
+        fill="#ffffff"
+      >
+        <path d="M0 0h24v24H0z" fill="none" />
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+      </svg>
+    );
   const sair = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -58,8 +68,14 @@ export default function Page() {
       <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" />
     </svg>
   );
+
   const Menus = [
-    { title: "Usuario", src: user1, select: false, path: "/usuarios" },
+    {
+      title: people.tipo == "Admin" ? "Usuários" : "Usuário",
+      src: user1,
+      select: false,
+      path: "/usuarios",
+    },
     { title: "Empresas", src: empresas, gap: false, path: "/empresas" },
 
     // { title: "Triagem", src: "Triagem.png" },
@@ -74,17 +90,13 @@ export default function Page() {
     // { title: "Prioridades", src: "Prioridades.png" },
     // { title: "Serviços", src: "Servicos.png" },
   ];
-  const [open, setOpen] = useState(true);
+  // const [open, setOpen] = useState(true);
   const urs = async () => {
     await findManyUsers("admin");
   };
 
   console.log(urs);
-  const people = {
-    name: "Ibones Hawkins",
-    tipo: "Admin",
-    image: "./user.png",
-  };
+
   let teste: boolean = false;
   if (teste) return null;
 
@@ -122,7 +134,7 @@ export default function Page() {
       {/* </div> */}
 
       {/* Perfil card */}
-      <div className="bg-white rounded-sm shadow-sm flex flex-row justify-between p-1 ">
+      <div className="bg-white rounded-sm shadow-sm flex flex-row justify-between p-2 ">
         {/* <ul className=""> */}
         {/* {people[0].tipo}
             {people.map((person) => ( */}
@@ -207,22 +219,28 @@ export default function Page() {
           </Link>
         ))}
         <li
+          onClick={() => {
+            logout();
+          }}
           style={{
             textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
             fontWeight: "bold",
           }}
           className={`text-white  text-sm flex items-center gap-x-4 
-              cursor-pointer p-2 hover:bg-slate-300 hover:-z-50 rounded-md hover:text-black`}
+              cursor-pointer p-2 hover:bg-slate-300 hover:-z-50 rounded-md hover:text-black mt-0 `}
         >
-          <ExitIcon />
-          <Button
+          <ExitIcon width={24} height={24} />
+          {/* <Button
             variant="ghost"
             onClick={() => {
               logout();
             }}
           >
             Sair
-          </Button>
+          </Button> */}
+          <span className={`${!open && "hidden"} origin-left duration-200`}>
+            Sair
+          </span>
         </li>
       </ul>
       {/* </div> */}

@@ -28,11 +28,13 @@ import { Search } from "lucide-react";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  adminUser: boolean;
 }
 
 export function DataTable<TData, TValue>({
   data,
   columns,
+  adminUser,
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -61,18 +63,20 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className="flex items-center justify-between py-4">
-        <div className="flex items-center ">
-          <Input
-            placeholder="Buscar usuário..."
-            onChange={(e) => handleFilter(e)}
-            className="max-w-sm"
-          />
+      {!adminUser && (
+        <div className="flex items-center justify-between py-4">
+          <div className="flex items-center ">
+            <Input
+              placeholder="Buscar usuário..."
+              onChange={(e) => handleFilter(e)}
+              className="max-w-sm"
+            />
 
-          <Search className=" relative right-9 text-gray-500" />
+            <Search className=" relative right-9 text-gray-500" />
+          </div>
+          <AddNovaEmpresa />
         </div>
-        <AddNovaEmpresa />
-      </div>
+      )}
 
       <div className="rounded-md border">
         <Table>
