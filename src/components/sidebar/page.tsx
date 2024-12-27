@@ -1,145 +1,40 @@
 "use client";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { MenuIcon, User2Icon, UserIcon, UsersIcon } from "lucide-react";
-import { Button } from "../ui/button";
-import { deleteSession } from "@/lib/session";
+import { Building, UserIcon, UsersIcon } from "lucide-react";
 import { logout } from "@/auth/auth";
-import { verifySession } from "@/lib/dal";
-import { findManyUsers } from "@/servicos/usuario";
 import { ExitIcon } from "@radix-ui/react-icons";
 
-export default function Page() {
-  const people = {
-    name: "Ibones Hawkins",
-    tipo: "Admin",
-    image: "./user.png",
-  };
-  const empresas = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      height="24px"
-      viewBox="0 0 24 24"
-      width="24px"
-      fill="#ffffff"
-    >
-      <path d="M0 0h24v24H0z" fill="none" />
-      <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z" />
-    </svg>
-  );
-  const user1 =
-    people.tipo == "Admin" ? (
-      <UsersIcon width={24} height={24} />
-    ) : (
-      // <Image src="/img/users.png" width={24} height={24} alt="" />
-      // <Image src="/user.png" width={60} height={60} alt="" />
-
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="24px"
-        viewBox="0 0 24 24"
-        width="24px"
-        fill="#ffffff"
-      >
-        <path d="M0 0h24v24H0z" fill="none" />
-        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-      </svg>
-    );
-  const sair = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      height="24px"
-      viewBox="0 0 24 24"
-      width="24px"
-      fill="#ffffff"
-    >
-      <path d="M0 0h24v24H0z" fill="none" />
-      <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" />
-    </svg>
-  );
-
+export default function Page({ people }: any) {
   const Menus = [
     {
-      title: people.tipo == "Admin" ? "Usuários" : "Usuário",
-      src: user1,
+      title: people?.tipo == "Admin" ? "Usuários" : "Usuário",
+      src:
+        people?.tipo == "Admin" ? (
+          <UsersIcon width={24} height={24} />
+        ) : (
+          <UserIcon width={24} height={24} />
+        ),
       select: false,
       path: "/usuarios",
     },
-    { title: "Empresas", src: empresas, gap: false, path: "/empresas" },
-
-    // { title: "Triagem", src: "Triagem.png" },
-    // { title: "Configuração", src: "configuracao.png" },
-    // { title: "Acesso Gerencial", src: "Usuario.png" , select:false },
-    // { title: "Administração", src: "Administracao.png"},
-    // { title: "Usuários", src: "Usuario.png" },
-    // { title: "Cargos", src: "Cargos.png" },
-    // { title: "Estatisticas", src: "Estatisticas.png" },
-    // { title: "Grupos", src: "Grupos.png" },
-    // { title: "Locais", src: "Locais.png" },
-    // { title: "Prioridades", src: "Prioridades.png" },
-    // { title: "Serviços", src: "Servicos.png" },
+    { title: "Empresas", src: <Building />, gap: false, path: "/empresas" },
   ];
-  // const [open, setOpen] = useState(true);
-  const urs = async () => {
-    await findManyUsers("admin");
-  };
-
-  console.log(urs);
-
-  let teste: boolean = false;
-  if (teste) return null;
 
   return (
-    // <div style={style.content_sidebar}>
-    //Container side bar
     <div className="flex bg-[#376D2B] flex-col w-72 p-2 shadow-xl gap-2">
-      {/* <div
-        style={style.content_sidebar}
-        className={`${
-          open ? "w-72" : "w-20"
-        } duration-300 h-screen p-6 pt-0 relative`}
-      > */}
-      {/* <div className={`${open ? "w-72" : "w-20"} duration-300 h-screen p-5 pt-8 bg-indigo-900 relative`}> */}
-      {/* <button onClick={() => setOpen(!open)}> */}
-      {/* <img src="img/pmp.png"  onClick={() => setOpen(!open)} className={`absolute cursor-pointer  rounded-full duration-500 w-10 h-10 -right-5 top-8  ${open && "rotate-[360deg]"}`} /> */}
-      {/* <img src="img/logo.png"             
-            className={`absolute cursor-pointer rounded-full bg-slate-900 -right-5 top-9 w-10 h-10 border-2 border-indigo-200 ${open && "rotate-180"}`}
-            className={`absolute cursor-pointer rounded-full bg-slate-900 -right-5 top-9 w-10 h-10 border-2 border-indigo-200 ${open && "rotate-180"}`}
-                   />  */}
-      {/* </button> */}
-      {/* <div className="flex  items-center"> */}
-      {/* <img src="img/logo.png" className={`cursor-pointer duration-500 ${open && "rotate-[360deg]"}`} /> */}
       <h1
         style={{
           textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           fontWeight: "bold",
         }}
-        className={`text-white shadow-black origin-left font-medium text-xl  p-2 text-center duration-300  w-full ${
-          !open && "scale-0"
+        className={`text-white shadow-black origin-left font-medium text-xl  p-2 text-center duration-300  w-full "
         }`}
       >
         CMEP
       </h1>
-      {/* </div> */}
 
-      {/* Perfil card */}
       <div className="bg-white rounded-sm shadow-sm flex flex-row justify-between p-2 ">
-        {/* <ul className=""> */}
-        {/* {people[0].tipo}
-            {people.map((person) => ( */}
-        {/* <li key={person.tipo} className="flex"> */}
-        {/* <div> */}
         <div className="flex  items-center  gap-1">
           <div>
             <Image
@@ -152,48 +47,11 @@ export default function Page() {
           </div>
 
           <div className=" ">
-            <p className="text-sm font-medium text-gray-900">{people.name}</p>
-            <p className="text-sm text-gray-500">{people.tipo}</p>
+            <p className="text-sm font-medium text-gray-900">{people?.nome}</p>
+            <p className="text-sm text-gray-500">{people?.tipo}</p>
           </div>
         </div>
-        {/* <div className="wi"> */}
-        <div className="flex justify-center ">
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              {/* <MenuIcon width={24} height={24} /> */}
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              {/* <DropdownMenuLabel>Meu perfil</DropdownMenuLabel>
-                        <DropdownMenuSeparator /> */}
-              <DropdownMenuItem>Altera Imgaem</DropdownMenuItem>
-              <DropdownMenuItem>Mudar senha</DropdownMenuItem>
-              <DropdownMenuItem>
-                <Button
-                  onClick={() => {
-                    logout();
-                  }}
-                >
-                  Sair
-                </Button>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-        {/* </div> */}
-        {/* </li>
-            ))}
-          </ul> */}
       </div>
-
-      {/* End Perfil card */}
-
-      {/* <div className="flex items-center  border  py-6">
-          <Skeleton className="h-12 w-12 rounded-full" />
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-[150px]" />
-            <Skeleton className="h-4 w-[100px]" />
-          </div>
-        </div> */}
 
       <ul>
         {Menus.map((menu, index) => (
@@ -210,11 +68,8 @@ export default function Page() {
                 menu.select == true && "bg-slate-500"
               }`}
             >
-              {/* <img className="h-4 w-4 text-white" src={menu.src} /> */}
               {menu.src}
-              <span className={`${!open && "hidden"} origin-left duration-200`}>
-                {menu.title}
-              </span>
+              <span className={` origin-left duration-200`}>{menu.title}</span>
             </li>
           </Link>
         ))}
@@ -230,37 +85,9 @@ export default function Page() {
               cursor-pointer p-2 hover:bg-slate-300 hover:-z-50 rounded-md hover:text-black mt-0 `}
         >
           <ExitIcon width={24} height={24} />
-          {/* <Button
-            variant="ghost"
-            onClick={() => {
-              logout();
-            }}
-          >
-            Sair
-          </Button> */}
-          <span className={`${!open && "hidden"} origin-left duration-200`}>
-            Sair
-          </span>
+          <span className={`origin-left duration-200`}>Sair</span>
         </li>
       </ul>
-      {/* </div> */}
     </div>
   );
 }
-// const style = {
-//   content: {
-//     backgroundImage: "linear-gradient(to bottom, #FFF, #999)",
-//   },
-//   content_sidebar: {
-// backgroundColor: "#376D2B",
-// backgroundImage: 'linear-gradient(to bottom, #D3D5D7, #355973)',
-// boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
-// borderBottom: "1px solid #D7DFF9",
-// width: "240px",
-// display: "flex",
-// flexDirection: "column",
-// transition: ".5s;",
-// padding: "10px",
-// gap: "10px",
-//   },
-// };

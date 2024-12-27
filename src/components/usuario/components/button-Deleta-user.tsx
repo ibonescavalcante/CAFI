@@ -6,7 +6,7 @@ interface EmpresaI {
   id: number;
 }
 
-const DeletaEmpresa = ({ id }: EmpresaI) => {
+const DeletaEmpresa = async ({ id }: EmpresaI) => {
   const deletaEmpresa = async () => {
     await deleteEmpresa(id);
   };

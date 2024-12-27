@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Sidebar from "../components/sidebar/page";
+import Sidebar from "../components/sidebar/control";
 const inter = Inter({ subsets: ["latin"] });
 import { cookies } from "next/headers";
 import { decrypt } from "@/lib/session";
+import { getUser, verifySession } from "@/lib/dal";
 
 export const metadata: Metadata = {
   title: "MCEP-CPL - Cadastro Municipal de Empresas Penalisadas",
@@ -16,23 +17,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookie = cookies().get("session")?.value;
-  const session = await decrypt(cookie);
-
+  //busca o usuario logado baseado no id da sessao para controle de acesso
+  // const hassession = await verifySession();
+  // if (hassession.isAuth)
+  // const usuario = await getUser();
   return (
     <html lang="pt-br">
       <body className={inter.className}>
         <div className=" flex">
-          {session?.userId ? <Sidebar /> : null}
-          <div
-            style={style.content}
-            className=" font-semibold flex-col h-screen w-screen"
-          >
-            {/* <div className=" w-full h-10 bg-gradient-to-r from-[#EEF3F5] to-[#12861c] "></div>  */}
-            {/* <div className=" w-full h-10 bg-gradient-to-r from-[#EEF3F5] to-[#12861c] "></div>  */}
-            {/* <div  style={{    borderBottom:'1px solid rgb(30, 30, 30)'}} className="flex justify-between items-center shadow w-full h-6 bg-gradient-to-r pl-6 pr-2 from-[#D7DFF9] to-[#494949]">
-        <span className="text-sm  shadow">Helpdesk </span><h1 className="text-white shadow">Ibones </h1>
-        </div> */}
+          {/* {usuario ? <Sidebar people={usuario} /> : null} */}
+          {<Sidebar />}
+          <div className=" font-semibold flex-col h-screen w-screen">
             <div>{children}</div>
           </div>
         </div>
@@ -40,11 +35,3 @@ export default async function RootLayout({
     </html>
   );
 }
-const style = {
-  content: {
-    display: "flex",
-    //   backgroundImage: 'linear-gradient(to bottom, #FFF, #999)',
-
-    // height:'94vh'
-  },
-};

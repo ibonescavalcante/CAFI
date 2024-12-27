@@ -2,17 +2,26 @@
 
 import { usuarioscolumns } from "@/components/usuario/_columns/page";
 import { DataTable } from "@/components/usuario/components/data-table";
+import { getUser } from "@/lib/dal";
 import { findManyUsers } from "@/servicos/usuario";
 import { UserIcon, UsersIcon } from "lucide-react";
 import Image from "next/image";
 
 const Page = async (req: any) => {
+  let getUsers: any = null;
   //buscar tipo de usuario
+  const usuario = await getUser();
+  if (usuario?.tipo === "Admin") {
+    getUsers = await findManyUsers(req.searchParams.filter);
+  } else {
+    getUsers = [usuario];
+  }
+  console.log("usuarioID", usuario);
   //se Admin
-  const getUsers = await findManyUsers(req.searchParams.filter);
+  // const getUsers = await findManyUsers(req.searchParams.filter);
   // se User
   //busca o usuario com id da sessao
-  const usuario = { type: "Admin" };
+  // const usuario = { type: "User" };
 
   // const retuser = await loginUser("admin", "102030");
 
@@ -20,7 +29,7 @@ const Page = async (req: any) => {
   return (
     <div className="flex flex-col p-4">
       <div className="flex items-center gap-4 p-4">
-        {usuario.type == "Admin" ? (
+        {usuario?.tipo == "Admin" ? (
           <UsersIcon width={50} height={50} />
         ) : (
           <UserIcon width={50} height={50} />
@@ -39,20 +48,24 @@ const Page = async (req: any) => {
             }}
             className="text-[32px] "
           >
-            {usuario.type == "Admin" ? "Usuários" : "Usuário"}
+            {usuario?.tipo == "Admin" ? "Usuários" : "Usuário"}
           </strong>
           <span
             style={{ fontSmooth: "auto", fontWeight: "normal" }}
             className="-mt-1 pl-1 text-sm  text-gray-500"
           >
-            {usuario.type == "Admin"
+            {usuario?.tipo == "Admin"
               ? " Visualize os usuarios cadastradas no sistema."
               : " Visualize seu usuario cadastradas no sistema."}
           </span>
         </div>
       </div>
 
-      <DataTable columns={usuarioscolumns} data={getUsers} adminUser={false} />
+      <DataTable
+        columns={usuarioscolumns}
+        data={getUsers}
+        adminUser={usuario?.tipo === "Admin" ? true : false}
+      />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
-import * as React from "react";
+// import * as React from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { User } from "@prisma/client";
+// import { User } from "@prisma/client";
 import EditUser from "../components/button-Edit-user";
 import DeletaUser from "../components/button-Deleta-user";
 

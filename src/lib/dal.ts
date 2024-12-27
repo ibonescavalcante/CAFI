@@ -23,18 +23,28 @@ export const verifySession = cache(async () => {
 
 export const getUser = cache(async () => {
   const session = await verifySession();
+
   if (!session) return null;
 
   try {
-    const user = await db.user.findMany({
+    const data = await db.user.findMany({
+      select: {
+        id: true,
+        nome: true,
+        user: true,
+        tipo: true,
+        status: true,
+      },
       where: {
-        id: session?.userId,
+        id: Number(session.userId),
       },
     });
 
+    const user = data[0];
+    console.log("getUser", user);
     return user;
   } catch (error) {
-    console.log("Failed to fetch user");
+    // console.log("Failed to fetch user");
     return null;
   }
 });
