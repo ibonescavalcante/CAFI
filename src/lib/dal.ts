@@ -3,7 +3,7 @@
 // como bancos de dados, APIs, ou qualquer outra fonte de dados persistente.
 // Essa camada abstrai os detalhes de como os dados são obtidos,
 //  armazenados e manipulados, permitindo que outras partes do sistema interajam com os dados de maneira uniforme
-
+"use server";
 import { cookies } from "next/headers";
 import { cache } from "react";
 import { decrypt } from "./session";
@@ -41,7 +41,7 @@ export const getUser = cache(async () => {
     });
 
     const user = data[0];
-    console.log("getUser", user);
+    // console.log("getUser", user);
     return user;
   } catch (error) {
     // console.log("Failed to fetch user");

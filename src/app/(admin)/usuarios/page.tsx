@@ -16,16 +16,7 @@ const Page = async (req: any) => {
   } else {
     getUsers = [usuario];
   }
-  console.log("usuarioID", usuario);
-  //se Admin
-  // const getUsers = await findManyUsers(req.searchParams.filter);
-  // se User
-  //busca o usuario com id da sessao
-  // const usuario = { type: "User" };
 
-  // const retuser = await loginUser("admin", "102030");
-
-  // console.log(retuser);
   return (
     <div className="flex flex-col p-4">
       <div className="flex items-center gap-4 p-4">
@@ -34,12 +25,7 @@ const Page = async (req: any) => {
         ) : (
           <UserIcon width={50} height={50} />
         )}
-        {/* <Image
-          width="50"
-          height="40"
-          alt="Empreasa"
-          src={usuario.type == "Admin" ? "/img/users.png" : "/img/user.svg"}
-        /> */}
+
         <div className=" flex flex-col ">
           <strong
             style={{

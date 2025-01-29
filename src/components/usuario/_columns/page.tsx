@@ -34,6 +34,7 @@ export const usuarioscolumns: ColumnDef<any>[] = [
       return (
         <div className="flex ">
           <EditUser user={row.original} />
+
           <DeletaUser id={row.original.id} />
         </div>
       );

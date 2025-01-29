@@ -24,6 +24,10 @@ const upInsertEmpresa = async (empresa: EmpresaInterfaceSchema) => {
 
 const deleteEmpresa = async (empresaID: number) => {
   // console.log("Delete", empresaID);
+
+  // if (usuario?.tipo != "Admin") {
+  //   return null;
+  // }
   const userId = 1;
   //verifica se usuario exite
   await db.empresa.delete({
